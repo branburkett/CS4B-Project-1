@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.MenuController">
+   <children>
+      <Label layoutX="182.0" layoutY="43.0" text="Tic Tac Toe">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="257.0" layoutY="206.0" text="Choose a mode:" />
+      <Button fx:id="button_Singleplayer" layoutX="156.0" layoutY="243.0" mnemonicParsing="false" onAction="#switchToSingleplayer" text="Singleplayer" />
+      <Button fx:id="button_LocalMultiplayer" layoutX="247.0" layoutY="243.0" mnemonicParsing="false" onAction="#switchToLocalMultiplayer" text="Local Multiplayer" />
+      <Button fx:id="button_OnlineMultiplayer" layoutX="360.0" layoutY="243.0" mnemonicParsing="false" onAction="#switchToOnlineMultiplayer" text="Online Multiplayer" />
+   </children>
+</Pane>
