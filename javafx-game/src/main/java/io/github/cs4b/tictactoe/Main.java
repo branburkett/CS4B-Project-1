@@ -1,4 +1,4 @@
-package io.github.branburkett;
+package io.github.cs4b.tictactoe;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

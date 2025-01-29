@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.branburkett</groupId>
+    <groupId>io.github.cs4b.tictactoe</groupId>
     <artifactId>javafx-game</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -73,7 +73,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>io.github.branburkett.Main</mainClass>
+                    <mainClass>io.github.cs4b.tictactoe.Main</mainClass>
                     <arguments>
                         <argument>--module-path</argument>
                         <argument>C:/Users/19493/Downloads/openjfx-23.0.1_windows-x64_bin-sdk/javafx-sdk-23.0.1/lib</argument>
