@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Pos?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController" alignment="CENTER" spacing="10">
+    <!-- Player Info -->
+    <HBox spacing="20" alignment="CENTER">
+        <Label fx:id="player1Label" text="Player 1: X" style="-fx-font-size: 16px;"/>
+        <Label fx:id="player2Label" text="Player 2: O" style="-fx-font-size: 16px;"/>
+    </HBox>
+
+    <!-- Current Player Turn -->
+    <Label fx:id="currentTurnLabel" text="Player 1's turn!" style="-fx-font-size: 18px;"/>
+
+    <!-- Game Board -->
+    <GridPane fx:id="boardGrid" hgap="5" vgap="5" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" />
+            <ColumnConstraints minWidth="100" />
+            <ColumnConstraints minWidth="100" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="100" />
+            <RowConstraints minHeight="100" />
+            <RowConstraints minHeight="100" />
+        </rowConstraints>
+    </GridPane>
+
+    <!-- Back to Menu Button -->
+    <Button text="Back to Menu" onAction="#goBackToMenu"/>
+</VBox>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.LandingController">
+    <Label text="Tic Tac Toe" style="-fx-font-size: 24px;"/>
+    <Button text="Single Player" onAction="#startSinglePlayerGame"/>
+    <Button text="Local 2-Player" disable="true"/>
+    <Button text="Network 2-Player" disable="true"/>
+</VBox>

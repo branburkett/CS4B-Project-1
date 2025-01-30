@@ -11,8 +11,8 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <java.version>21</java.version> <!-- Ensure consistency -->
-        <javafx.version>23.0.1</javafx.version>
+        <java.version>21</java.version> <!-- Adjust Java version as needed -->
+        <javafx.version>23.0.1</javafx.version> <!-- Adjust JavaFX version -->
     </properties>
 
     <repositories>
@@ -34,17 +34,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
+            <version>23.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
+            <version>23.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${javafx.version}</version>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-glisten</artifactId>
+            <version>6.2.3</version> <!-- Use the latest version if available -->
         </dependency>
     </dependencies>
 
@@ -55,27 +55,34 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>17</source>
+                    <target>17</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>run</goal>
+                            <goal>java</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <mainClass>io.github.cs4b.tictactoe.Main</mainClass>
+                    <arguments>
+                        <argument>--module-path</argument>
+                        <argument>C:/Users/19493/Downloads/openjfx-23.0.1_windows-x64_bin-sdk/javafx-sdk-23.0.1/lib</argument>
+                        <argument>--add-modules</argument>
+                        <argument>javafx.controls,javafx.fxml</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
