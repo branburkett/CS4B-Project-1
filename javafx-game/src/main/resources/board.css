@@ -1,0 +1,5 @@
+/* Set a clean background color for the landing screen */
+.root {
+  -fx-background-color: #bd00ff; /* Set the background to white or any color you prefer */
+  background-color: #bd00ff;      /* General CSS property for compatibility */
+}

@@ -1,0 +1,22 @@
+/*New font*/
+@font-face {
+  font-family: "Modak";
+  src: url("Modak-Regular.ttf");
+}
+
+.root {
+  -fx-background-color: #8D6E63        ; /* Set the background to white or any color you prefer */
+  background-color: #8D6E63         ;      /* General CSS property for compatibility */
+}
+
+.custom-text1 {
+  -fx-font-family: "Modak";
+  -fx-font-size: 60px;
+  -fx-text-fill: #EAC435           ; /* Change to the yellow shade from your image */
+}
+
+.custom-text2 {
+  -fx-font-family: "Modak";
+  -fx-font-size: 60px;
+  -fx-text-fill: #3BCEAC     ; /* Change to the blue shade from your image */
+}

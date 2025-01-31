@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 
-<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.LandingController">
-    <Label text="Tic Tac Toe" style="-fx-font-size: 24px;"/>
-    <Button text="Single Player" onAction="#startSinglePlayerGame"/>
-    <Button text="Local 2-Player" disable="true"/>
-    <Button text="Network 2-Player" disable="true"/>
-</VBox>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.LandingController"> 
+    <Label layoutX="-10.0" layoutY="-10.0" style="-fx-font-size: 170;" styleClass="custom-text1" text="tic" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
+    <Label layoutX="-10.0" layoutY="303.0" style="-fx-font-size: 170px;" styleClass="custom-text1" text="toe" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="303.0" />
+    <Label layoutX="-10.0" layoutY="143.0" style="-fx-font-size: 170px;" styleClass="custom-text2" text="tac" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="143.0" />
+    <Button layoutX="140.0" layoutY="540.0" onAction="#startSinglePlayerGame" text="Single Player" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="540.0" />
+    <Button disable="true" layoutX="137.0" layoutY="582.0" text="Local 2-Player" AnchorPane.leftAnchor="137.0" AnchorPane.topAnchor="582.0" />
+    <Button disable="true" layoutX="128.0" layoutY="636.0" text="Network 2-Player" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="636.0" />
+</AnchorPane>
