@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.LandingController"> 
-    <Label layoutX="-10.0" layoutY="-10.0" style="-fx-font-size: 170;" styleClass="custom-text1" text="tic" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
-    <Label layoutX="-10.0" layoutY="303.0" style="-fx-font-size: 170px;" styleClass="custom-text1" text="toe" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="303.0" />
-    <Label layoutX="-10.0" layoutY="143.0" style="-fx-font-size: 170px;" styleClass="custom-text2" text="tac" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="143.0" />
-    <Button layoutX="140.0" layoutY="540.0" onAction="#startSinglePlayerGame" text="Single Player" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="540.0" />
-    <Button disable="true" layoutX="137.0" layoutY="582.0" text="Local 2-Player" AnchorPane.leftAnchor="137.0" AnchorPane.topAnchor="582.0" />
-    <Button disable="true" layoutX="128.0" layoutY="636.0" text="Network 2-Player" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="636.0" />
+    <Label layoutX="-10.0" layoutY="-30.0" style="-fx-font-size: 170;" styleClass="custom-text1" text="tic" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="-30.0" />
+    <Label layoutX="-10.0" layoutY="262.0" style="-fx-font-size: 170px;" styleClass="custom-text1" text="toe" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="262.0" />
+    <Label layoutX="-10.0" layoutY="115.0" style="-fx-font-size: 170px;" styleClass="custom-text2" text="tac" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="115.0" />
+    <Button id="singlePlayerButton" onAction="#startSinglePlayerGame" styleClass="custom-button" text="Single Player" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+    <Button id="localTwoPlayerButton" styleClass="custom-button" text="Local 2-Player" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+    <Button id="networkTwoPlayerButton" styleClass="custom-button" text="Network 2-Player" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
 </AnchorPane>

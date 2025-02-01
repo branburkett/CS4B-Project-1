@@ -4,19 +4,78 @@
   src: url("Modak-Regular.ttf");
 }
 
+@font-face {
+  font-family: "Oswald";
+  src: url("Oswald-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Baloo 2";
+  src: url("Baloo2-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Bungee";
+  src: url("Bungee-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("Fredoka-VariableFont_wdth\,wght.ttf");
+}
+
+/*6. Sand & Surf (Coastal & Relaxed) */
 .root {
-  -fx-background-color: #8D6E63        ; /* Set the background to white or any color you prefer */
-  background-color: #8D6E63         ;      /* General CSS property for compatibility */
+  -fx-background-color: #8D6E63; /* (Driftwood Brown) */
+  background-color: #8D6E63;     /* General CSS property for compatibility */
 }
 
 .custom-text1 {
   -fx-font-family: "Modak";
   -fx-font-size: 60px;
-  -fx-text-fill: #EAC435           ; /* Change to the yellow shade from your image */
+  -fx-text-fill: #EAC435; /* (Golden Sand) */
 }
 
 .custom-text2 {
   -fx-font-family: "Modak";
   -fx-font-size: 60px;
-  -fx-text-fill: #3BCEAC     ; /* Change to the blue shade from your image */
+  -fx-text-fill: #3BCEAC; /* (Teal Ocean) */
+}
+
+.custom-button {
+  -fx-font-family: "Bungee"; /* Match the title font */
+
+  -fx-alignment: center; /* Ensures centering */
+  -fx-font-size: 14px;
+  
+  -fx-background-color: #3BCEAC; /* Tropical Coral */
+  /*-fx-background-color: #FF6B6B; /* Tropical Coral */
+  -fx-text-fill: white; /* White text for contrast */
+  
+  -fx-padding: 10px 30px;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+  
+  -fx-border-color: #EAC435; /* Teal Ocean */
+  -fx-border-width: 3px;
+
+
+  -fx-cursor: hand; /* Makes it feel interactive */
+  -fx-effect: dropshadow( gaussian , rgba(0, 0, 0, 0.4) , 8, 0.3 , 2 , 2 );
+  -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Button Hover Effect */
+.custom-button:hover {
+  -fx-background-color: #FF8C42; /* A brighter orange when hovered */
+  -fx-border-color: white;
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+}
+
+/* Button Pressed Effect */
+.custom-button:pressed {
+  -fx-background-color: #D72638; /* Slightly darker red when clicked */
+  -fx-scale-x: 0.95;
+  -fx-scale-y: 0.95;
 }

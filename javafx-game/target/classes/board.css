@@ -1,5 +1,50 @@
-/* Set a clean background color for the landing screen */
+/*6. Sand & Surf (Coastal & Relaxed) */
 .root {
-  -fx-background-color: #bd00ff; /* Set the background to white or any color you prefer */
-  background-color: #bd00ff;      /* General CSS property for compatibility */
+  -fx-background-color: #8D6E63; /* (Driftwood Brown) */
+  background-color: #8D6E63;     /* General CSS property for compatibility */
+}
+
+/* Scoreboard */
+.score-box {
+  -fx-spacing: 10;
+  -fx-alignment: center;
+}
+
+.score-label {
+  -fx-font-size: 20px;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-alignment: center;
+}
+
+/* GridPane styling */
+.game-grid {
+  -fx-hgap: 15;
+  -fx-vgap: 0;
+  -fx-alignment: center;
+}
+
+.grid-button {
+  -fx-pref-width: 100px;
+  -fx-pref-height: 100px;
+  -fx-opacity: 1; /* Ensure the button is not transparent */
+  -fx-background-color: #BFA89A; /* Purple */
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 5px;
+  -fx-border-radius: 5px;
+  /*-fx-border-color: white;*/
+}
+
+/* Button styling for New Game */
+.custom-button {
+  -fx-background-color: #4CAF50; /* Green */
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-pref-width: 200px;
+  -fx-pref-height: 40px;
+  -fx-background-radius: 5px;
+  -fx-border-radius: 5px;
 }
