@@ -2,6 +2,7 @@ package io.github.cs4b.tictactoe;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -45,6 +46,15 @@ public class BoardController2 {
 
     @FXML
     private Button newGame;
+
+    @FXML
+    private Label playerXScore;
+
+    @FXML
+    private Label drawScore;
+
+    @FXML
+    private Label playerOScore;
 
     // Add any other necessary fields and methods
     @FXML

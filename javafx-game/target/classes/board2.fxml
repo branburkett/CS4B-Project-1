@@ -12,21 +12,24 @@
 
 <AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController2" stylesheets="@board.css">
    <children>
-      <HBox layoutX="73.0" layoutY="62.0" prefHeight="100.0" prefWidth="200.0" styleClass="score-box">
+      <HBox layoutX="62.0" layoutY="75.0" prefHeight="75.0" prefWidth="240.0" alignment="CENTER" AnchorPane.leftAnchor="61.35" AnchorPane.rightAnchor="61.35" styleClass="score-box">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square1">
                <children>
-                  <Label text="PLAYER X" styleClass="score-label"/>
+                  <Label text="PLAYER X" styleClass="score-title"/>
+                  <Label text="0" fx:id="playerXScore" styleClass="score-value"/>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square2">
                <children>
-                  <Label alignment="TOP_LEFT" text="DRAW" styleClass="score-label"/>
+                  <Label text="DRAW" styleClass="score-title"/>
+                  <Label text="0" fx:id="drawScore" styleClass="score-value"/>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square3">
                <children>
-                  <Label text="PLAYER O" styleClass="score-label"/>
+                  <Label text="PLAYER O" styleClass="score-title"/>
+                  <Label text="0" fx:id="playerOScore" styleClass="score-value"/>
                </children>
             </VBox>
          </children>
@@ -54,6 +57,6 @@
             <Button id="button9" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="grid-button"/>
          </children>
       </GridPane>
-      <Button id="newGame" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
+      <Button id="newGame" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
    </children>
 </AnchorPane>
