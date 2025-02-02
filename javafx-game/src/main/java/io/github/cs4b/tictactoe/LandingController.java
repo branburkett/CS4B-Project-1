@@ -11,4 +11,14 @@ public class LandingController {
     private void startSinglePlayerGame() {
         TicTacToeApp.showBoardScreen();
     }
+
+    @FXML
+    private void startLocalGame() {
+        TicTacToeApp.showLocalBoardScreen();
+    }
+
+    @FXML
+    private void startNetworkGame() {
+        TicTacToeApp.showNetworkBoardScreen();
+    }
 }

@@ -1,4 +1,4 @@
-// BoardController.java is the Local 2-Player option
+// BoardController3.java is for Network 2-Player
 
 package io.github.cs4b.tictactoe;
 
@@ -7,8 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.util.Random;
 
-public class BoardController {
+public class BoardController3 {
 
     @FXML
     private AnchorPane anchorPane;
@@ -20,29 +23,32 @@ public class BoardController {
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
 
     @FXML
-    private Button newGame, backButton;
+    private Button newGame;
+
+    @FXML
+    private Button backButton; // Back button for main menu
 
     @FXML
     private Label playerXScore, drawScore, playerOScore;
 
     @FXML
-    private Button[] buttons;
+    private Button[] buttons; // Store button references
 
-    private char[][] board = new char[3][3]; 
+    private char[][] board = new char[3][3]; // Board state
     private boolean gameActive = true;
-    private boolean isPlayerXTurn = true; // Track player turns
     private int xWins = 0, oWins = 0, draws = 0;
+    private Random random = new Random();
 
     @FXML
     public void initialize() {
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         resetBoard();
-
+        
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
             buttons[i].setOnAction(e -> handlePlayerMove(index));
         }
-
+        
         newGame.setOnAction(e -> resetBoard());
         backButton.setOnAction(e -> goToMainMenu());
     }
@@ -53,18 +59,18 @@ public class BoardController {
     }
 
     private void handlePlayerMove(int index) {
-        if (!gameActive || !buttons[index].getText().isEmpty()) return;
-
+        if (!gameActive || buttons[index].getText().isEmpty() == false) return;
+        
         int row = index / 3, col = index % 3;
-        char currentPlayer = isPlayerXTurn ? 'X' : 'O';
+        board[row][col] = 'X';
+        
+        // Apply styling for X
+        //buttons[index].getStyleClass().clear();
+        buttons[index].getStyleClass().add("x");
+        buttons[index].setText("X");
 
-        board[row][col] = currentPlayer;
-        buttons[index].setText(String.valueOf(currentPlayer));
-        buttons[index].getStyleClass().add(isPlayerXTurn ? "x" : "o");
-
-        if (checkWin(currentPlayer)) {
-            if (currentPlayer == 'X') xWins++;
-            else oWins++;
+        if (checkWin('X')) {
+            xWins++;
             updateScores();
             gameActive = false;
             return;
@@ -77,14 +83,41 @@ public class BoardController {
             return;
         }
 
-        isPlayerXTurn = !isPlayerXTurn; // Switch turns
+        aiMove();
+    }
+
+    private void aiMove() {
+        if (!gameActive) return;
+        
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i].getText().isEmpty()) {
+                int row = i / 3, col = i % 3;
+                board[row][col] = 'O';
+                
+                // Apply styling for O
+                //buttons[i].getStyleClass().clear();
+                buttons[i].getStyleClass().add("o");
+                buttons[i].setText("O");
+
+                break;
+            }
+        }
+
+        if (checkWin('O')) {
+            oWins++;
+            updateScores();
+            gameActive = false;
+        } else if (isBoardFull()) {
+            draws++;
+            updateScores();
+            gameActive = false;
+        }
     }
 
     private boolean checkWin(char player) {
         for (int i = 0; i < 3; i++) {
             if ((board[i][0] == player && board[i][1] == player && board[i][2] == player) ||
-                (board[0][i] == player && board[1][i] == player && board[2][i] == player)) 
-                return true;
+                (board[0][i] == player && board[1][i] == player && board[2][i] == player)) return true;
         }
         return (board[0][0] == player && board[1][1] == player && board[2][2] == player) ||
                (board[0][2] == player && board[1][1] == player && board[2][0] == player);
@@ -107,13 +140,8 @@ public class BoardController {
         for (int i = 0; i < 3; i++) 
             for (int j = 0; j < 3; j++) 
                 board[i][j] = ' ';
-
-        for (Button button : buttons) {
-            button.setText("");
-            button.getStyleClass().removeAll("x", "o");
-        }
         
+        for (Button button : buttons) button.setText("");
         gameActive = true;
-        isPlayerXTurn = true; // X starts first
     }
 }

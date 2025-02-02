@@ -34,6 +34,7 @@ public class TicTacToeApp extends Application {
         }
     }
 
+    //showBoardScreen is the Single Player mode
     public static void showBoardScreen() {
         try {
             Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/board2.fxml"));
@@ -41,10 +42,42 @@ public class TicTacToeApp extends Application {
 
             // Add the CSS file to the scene
             scene.getStylesheets().add(TicTacToeApp.class.getResource("/board.css").toExternalForm());
+            System.out.println("board2.css");
+
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Tic Tac Toe - Single Player");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showLocalBoardScreen() {
+        try {
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/board.fxml"));
+            Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+            // Add the CSS file to the scene
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/board.css").toExternalForm());
             System.out.println("board.css");
 
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Tic Tac Toe - Game");
+            primaryStage.setTitle("Tic Tac Toe - Local 2-Player");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showNetworkBoardScreen() {
+        try {
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/board3.fxml"));
+            Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+            // Add the CSS file to the scene
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/board.css").toExternalForm());
+            System.out.println("board3.css");
+
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Tic Tac Toe - Network 2-Player");
         } catch (Exception e) {
             e.printStackTrace();
         }

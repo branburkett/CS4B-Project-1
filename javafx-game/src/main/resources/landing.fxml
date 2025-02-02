@@ -9,6 +9,6 @@
     <Label layoutX="-10.0" layoutY="262.0" style="-fx-font-size: 170px;" styleClass="custom-text1" text="toe" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="262.0" />
     <Label layoutX="-10.0" layoutY="115.0" style="-fx-font-size: 170px;" styleClass="custom-text2" text="tac" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="115.0" />
     <Button id="singlePlayerButton" onAction="#startSinglePlayerGame" styleClass="custom-button" text="Single Player" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-    <Button id="localTwoPlayerButton" styleClass="custom-button" text="Local 2-Player" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-    <Button id="networkTwoPlayerButton" styleClass="custom-button" text="Network 2-Player" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+    <Button id="localTwoPlayerButton" onAction="#startLocalGame" styleClass="custom-button" text="Local 2-Player" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+    <Button id="networkTwoPlayerButton" onAction="#startNetworkGame" styleClass="custom-button" text="Network 2-Player" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
 </AnchorPane>

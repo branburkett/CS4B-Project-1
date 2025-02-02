@@ -12,6 +12,9 @@
 
 <AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController2" stylesheets="@board.css">
    <children>
+      <!-- Back Button at Top Left -->
+      <Button onAction="#goToMainMenu" fx:id="backButton" text="←" styleClass="custom-button"
+          AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
       <HBox layoutX="62.0" layoutY="75.0" prefHeight="75.0" prefWidth="240.0" alignment="CENTER" AnchorPane.leftAnchor="61.35" AnchorPane.rightAnchor="61.35" styleClass="score-box">
          <children>
             <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square1">
@@ -46,17 +49,17 @@
           <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Button id="button1" onAction="#clickButton1" mnemonicParsing="false" styleClass="grid-button"/>
-            <Button id="button2" mnemonicParsing="false"  GridPane.columnIndex="1" styleClass="grid-button"/>
-            <Button id="button3" mnemonicParsing="false"  GridPane.columnIndex="2" styleClass="grid-button"/>
-            <Button id="button4" mnemonicParsing="false"  GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button id="button5" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button id="button6" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button id="button7" mnemonicParsing="false"  GridPane.rowIndex="2" styleClass="grid-button"/>
-            <Button id="button8" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="grid-button"/>
-            <Button id="button9" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="grid-button"/>
+            <Button fx:id="button1" mnemonicParsing="false" styleClass="grid-button"/>
+            <Button fx:id="button2" mnemonicParsing="false"  GridPane.columnIndex="1" styleClass="grid-button"/>
+            <Button fx:id="button3" mnemonicParsing="false"  GridPane.columnIndex="2" styleClass="grid-button"/>
+            <Button fx:id="button4" mnemonicParsing="false"  GridPane.rowIndex="1" styleClass="grid-button"/>
+            <Button fx:id="button5" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="grid-button"/>
+            <Button fx:id="button6" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="grid-button"/>
+            <Button fx:id="button7" mnemonicParsing="false"  GridPane.rowIndex="2" styleClass="grid-button"/>
+            <Button fx:id="button8" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="grid-button"/>
+            <Button fx:id="button9" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="grid-button"/>
          </children>
       </GridPane>
-      <Button id="newGame" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
+      <Button fx:id="newGame" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
    </children>
 </AnchorPane>
