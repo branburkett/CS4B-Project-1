@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="708.96" prefWidth="362.7" stylesheets="@board.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController">
+<AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController" stylesheets="@board.css">
    <children>
       <!-- Back Button at Top Left -->
       <Button fx:id="backButton" onAction="#goToMainMenu" styleClass="custom-button" text="←" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
