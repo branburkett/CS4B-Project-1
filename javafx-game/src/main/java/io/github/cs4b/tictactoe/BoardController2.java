@@ -1,13 +1,16 @@
+// BoardController.java is the Singleplayer option
+
 package io.github.cs4b.tictactoe;
 
+import java.util.Random;
+
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.util.Random;
+import javafx.util.Duration;
 
 public class BoardController2 {
 
@@ -38,13 +41,22 @@ public class BoardController2 {
     private Random random = new Random();
 
     @FXML
+    private Label[] labels;
+    
+    @FXML
+    private Label buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9;
+
+    @FXML
     public void initialize() {
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        labels = new Label[]{buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9};
         resetBoard();
         
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
             buttons[i].setOnAction(e -> handlePlayerMove(index));
+
+            setupButtonHover(buttons[i], labels[i]);
         }
         
         newGame.setOnAction(e -> resetBoard());
@@ -67,7 +79,12 @@ public class BoardController2 {
         buttons[index].getStyleClass().add("x");
         buttons[index].setText("X");
 
+        labels[index].setVisible(false);
+
         if (checkWin('X')) {
+            for (int i = 0; i < 9; i++) {
+                labels[i].setVisible(false);
+            }
             xWins++;
             updateScores();
             gameActive = false;
@@ -97,6 +114,8 @@ public class BoardController2 {
                 buttons[i].getStyleClass().add("o");
                 buttons[i].setText("O");
 
+                labels[i].setVisible(false);
+
                 break;
             }
         }
@@ -105,6 +124,9 @@ public class BoardController2 {
             oWins++;
             updateScores();
             gameActive = false;
+            for (int i = 0; i < 9; i++) {
+                labels[i].setVisible(false);
+            }
         } else if (isBoardFull()) {
             draws++;
             updateScores();
@@ -141,5 +163,32 @@ public class BoardController2 {
         
         for (Button button : buttons) button.setText("");
         gameActive = true;
+
+        for (int i = 0; i < 9; i++) {
+            setupButtonHover(buttons[i], labels[i]);
+        }
+    }
+
+    private void setupButtonHover(Button button, Label label) {
+        label.setOpacity(0.0);
+        label.setMouseTransparent(true);
+        label.setText("x");
+        label.setVisible(true);
+    
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(160), label);
+        fadeIn.setToValue(0.5);
+    
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(175), label);
+        fadeOut.setToValue(0.0);
+
+        button.setOnMouseEntered(event -> {
+            fadeOut.stop();
+            fadeIn.playFromStart();
+        });
+    
+        button.setOnMouseExited(event -> {
+            fadeIn.stop();
+            fadeOut.playFromStart();
+        });
     }
 }
