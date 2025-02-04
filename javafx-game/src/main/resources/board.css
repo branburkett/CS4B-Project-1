@@ -1,116 +1,124 @@
 @font-face {
-  font-family: "Bungee";
-  src: url("Bungee-Regular.ttf");
-}
+    font-family: "Bungee";
+    src: url("Bungee-Regular.ttf");
+  }
+  
+  /*6. Sand & Surf (Coastal & Relaxed) */
+  .root {
+    -fx-background-color: #8D6E63; /* (Driftwood Brown) */
+    background-color: #8D6E63;     /* General CSS property for compatibility */
+  }
+  
+  .score-title {
+    -fx-font-family: "Bungee";
+    -fx-font-size: 10px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: top-center;
+  }
+  
+  .score-value {
+    -fx-font-family: "Bungee";
+    -fx-font-size: 32px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+  }
+  
+  .score-square1 {
+    -fx-pref-width: 75px;
+    -fx-pref-height: 75px;
+    -fx-alignment: center;
+    -fx-background-color: #3BCEAC; /* Match grid button */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-spacing: 5px; /* Ensures spacing between title and value */
+  }
+  
+  .score-square2 {
+    -fx-pref-width: 75px;
+    -fx-pref-height: 75px;
+    -fx-alignment: center;
+    -fx-background-color: #BFA89A; /* Match grid button */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-spacing: 5px; /* Ensures spacing between title and value */
+  }
+  
+  .score-square3 {
+    -fx-pref-width: 75px;
+    -fx-pref-height: 75px;
+    -fx-alignment: center;
+    -fx-background-color: #EAC435; /* Match grid button */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-spacing: 5px; /* Ensures spacing between title and value */
+  }
+  
+  .score-box {
+    -fx-spacing: 15; /* Adds space between boxes */
+    -fx-alignment: center; /* Ensures everything is centered */
+  }
+  
+  /* GridPane styling */
+  .game-grid {
+    -fx-hgap: 15;
+    -fx-vgap: 0;
+    -fx-alignment: center;
+  }
+  
+  .grid-button {
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+    -fx-opacity: 1; /* Ensure the button is not transparent */
+    -fx-background-color: #BFA89A; /* Purple */
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    /*-fx-border-color: white;*/
+  }
+  
+  .grid-button.x {
+    -fx-font-family: "Bungee";
+    -fx-font-size: 40px;
+    -fx-text-fill: #3BCEAC;
+    -fx-background-color: #BFA89A; /* Keeps light brown background */
+    -fx-alignment: center;
+  }
+  
+  .grid-button.o {
+    -fx-font-family: "Bungee";
+    -fx-font-size: 40px;
+    -fx-text-fill: #EAC435;
+    -fx-background-color: #BFA89A; /* Keeps light brown background */
+    -fx-alignment: center;
+  }
+  
+  /* Button styling for New Game */
+  .custom-button {
+    -fx-font-family: "Bungee";
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+  }
 
-/*6. Sand & Surf (Coastal & Relaxed) */
-.root {
-  -fx-background-color: #8D6E63; /* (Driftwood Brown) */
-  background-color: #8D6E63;     /* General CSS property for compatibility */
-}
-
-.score-title {
-  -fx-font-family: "Bungee";
-  -fx-font-size: 10px;
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-  -fx-alignment: top-center;
-}
-
-.score-value {
-  -fx-font-family: "Bungee";
-  -fx-font-size: 32px;
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-  -fx-alignment: center;
-}
-
-.score-square1 {
-  -fx-pref-width: 75px;
-  -fx-pref-height: 75px;
-  -fx-alignment: center;
-  -fx-background-color: #3BCEAC; /* Match grid button */
-  -fx-border-width: 2px;
-  -fx-border-radius: 5px;
-  -fx-background-radius: 5px;
-  -fx-padding: 5px;
-  -fx-spacing: 5px; /* Ensures spacing between title and value */
-}
-
-.score-square2 {
-  -fx-pref-width: 75px;
-  -fx-pref-height: 75px;
-  -fx-alignment: center;
-  -fx-background-color: #BFA89A; /* Match grid button */
-  -fx-border-width: 2px;
-  -fx-border-radius: 5px;
-  -fx-background-radius: 5px;
-  -fx-padding: 5px;
-  -fx-spacing: 5px; /* Ensures spacing between title and value */
-}
-
-.score-square3 {
-  -fx-pref-width: 75px;
-  -fx-pref-height: 75px;
-  -fx-alignment: center;
-  -fx-background-color: #EAC435; /* Match grid button */
-  -fx-border-width: 2px;
-  -fx-border-radius: 5px;
-  -fx-background-radius: 5px;
-  -fx-padding: 5px;
-  -fx-spacing: 5px; /* Ensures spacing between title and value */
-}
-
-.score-box {
-  -fx-spacing: 15; /* Adds space between boxes */
-  -fx-alignment: center; /* Ensures everything is centered */
-}
-
-/* GridPane styling */
-.game-grid {
-  -fx-hgap: 15;
-  -fx-vgap: 0;
-  -fx-alignment: center;
-}
-
-.grid-button {
-  -fx-pref-width: 100px;
-  -fx-pref-height: 100px;
-  -fx-opacity: 1; /* Ensure the button is not transparent */
-  -fx-background-color: #BFA89A; /* Purple */
-  -fx-text-fill: white;
-  -fx-font-size: 20px;
-  -fx-font-weight: bold;
-  -fx-background-radius: 5px;
-  -fx-border-radius: 5px;
-  /*-fx-border-color: white;*/
-}
-
-.grid-button.x {
-  -fx-font-family: "Bungee";
-  -fx-font-size: 40px;
-  -fx-text-fill: #3BCEAC;
-  -fx-background-color: #BFA89A; /* Keeps light brown background */
-  -fx-alignment: center;
-}
-
-.grid-button.o {
-  -fx-font-family: "Bungee";
-  -fx-font-size: 40px;
-  -fx-text-fill: #EAC435;
-  -fx-background-color: #BFA89A; /* Keeps light brown background */
-  -fx-alignment: center;
-}
-
-/* Button styling for New Game */
-.custom-button {
-  -fx-font-family: "Bungee";
-  -fx-background-color: #4CAF50; /* Green */
-  -fx-text-fill: white;
-  -fx-font-size: 16px;
-  -fx-font-weight: bold;
-  -fx-pref-width: 40px;
-  -fx-pref-height: 40px;
-  -fx-background-radius: 5px;
-  -fx-border-radius: 5px;
+  .hover-label {
+    -fx-font-family: "Bungee";
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
 }
