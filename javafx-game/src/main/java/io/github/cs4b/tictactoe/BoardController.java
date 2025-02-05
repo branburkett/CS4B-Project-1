@@ -2,11 +2,13 @@
 
 package io.github.cs4b.tictactoe;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 public class BoardController {
 
@@ -34,13 +36,23 @@ public class BoardController {
     private int xWins = 0, oWins = 0, draws = 0;
 
     @FXML
+    private Label[] labels;
+    
+    @FXML
+    private Label buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9;
+
+    @FXML
     public void initialize() {
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        labels = new Label[]{buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9};
+
         resetBoard();
 
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
             buttons[i].setOnAction(e -> handlePlayerMove(index));
+
+            setupButtonHover(buttons[i], labels[i]);
         }
 
         newGame.setOnAction(e -> resetBoard());
@@ -62,7 +74,12 @@ public class BoardController {
         buttons[index].setText(String.valueOf(currentPlayer));
         buttons[index].getStyleClass().add(isPlayerXTurn ? "x" : "o");
 
+        labels[index].setVisible(false);
+
         if (checkWin(currentPlayer)) {
+            for (int i = 0; i < 9; i++) {
+                labels[i].setVisible(false);
+            }
             if (currentPlayer == 'X') xWins++;
             else oWins++;
             updateScores();
@@ -78,6 +95,11 @@ public class BoardController {
         }
 
         isPlayerXTurn = !isPlayerXTurn; // Switch turns
+
+        // Update buttonHovers to correct icon
+        for (Label label : labels) {      
+            label.setText((isPlayerXTurn) ? "X" : "O");
+        }
     }
 
     private boolean checkWin(char player) {
@@ -112,8 +134,34 @@ public class BoardController {
             button.setText("");
             button.getStyleClass().removeAll("x", "o");
         }
+        for (int i = 0; i < 9; i++) {
+            setupButtonHover(buttons[i], labels[i]);
+        }
         
         gameActive = true;
         isPlayerXTurn = true; // X starts first
+    }
+
+    private void setupButtonHover(Button button, Label label) {
+        label.setOpacity(0.0);
+        label.setMouseTransparent(true);
+        label.setText("x");
+        label.setVisible(true);
+    
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(160), label);
+        fadeIn.setToValue(0.5);
+    
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(175), label);
+        fadeOut.setToValue(0.0);
+
+        button.setOnMouseEntered(event -> {
+            fadeOut.stop();
+            fadeIn.playFromStart();
+        });
+    
+        button.setOnMouseExited(event -> {
+            fadeIn.stop();
+            fadeOut.playFromStart();
+        });
     }
 }
