@@ -1,0 +1,29 @@
+/*{
+    "version": "0.2.0",
+    "configurations": [
+
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
+        "mainClass": "io.github.cs4b.tictactoe.Main",
+        "projectName": "javafx-game"
+      }
+    ]
+  }
+*/
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Launch Main",
+        "request": "launch",
+        "mainClass": "io.github.cs4b.tictactoe.Main",
+        "projectName": "javafx-game",
+        "args": [],
+        "vmArgs": "--module-path C:/path-to-your/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml"
+      }
+    ]
+  }
+  
