@@ -97,5 +97,14 @@
          </children>
       </GridPane>
       <Button fx:id="newGame" mnemonicParsing="false" styleClass="custom-button" text="New Game" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+
+<!-- Popup Overlay -->
+<StackPane fx:id="popupPane" visible="false" styleClass="popup-background" layoutX="80.00" layoutY="310.00">
+    <VBox fx:id="popupBox" styleClass="popup-box" spacing="10" alignment="CENTER">
+        <Label fx:id="popupMessage" text="Winner!" styleClass="popup-text"/>
+        <Button text="OK" onAction="#closePopup" styleClass="popup-button"/>
+    </VBox>
+</StackPane>
+
    </children>
 </AnchorPane>

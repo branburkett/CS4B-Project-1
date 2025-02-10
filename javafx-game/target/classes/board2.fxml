@@ -8,10 +8,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 
 
 <AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController2" stylesheets="@board.css">
    <children>
+
       <!-- Back Button at Top Left -->
       <Button onAction="#goToMainMenu" fx:id="backButton" text="←" styleClass="custom-button"
           AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
@@ -49,17 +51,66 @@
           <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Button fx:id="button1" mnemonicParsing="false" styleClass="grid-button"/>
-            <Button fx:id="button2" mnemonicParsing="false"  GridPane.columnIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button3" mnemonicParsing="false"  GridPane.columnIndex="2" styleClass="grid-button"/>
-            <Button fx:id="button4" mnemonicParsing="false"  GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button5" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button6" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button7" mnemonicParsing="false"  GridPane.rowIndex="2" styleClass="grid-button"/>
-            <Button fx:id="button8" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="grid-button"/>
-            <Button fx:id="button9" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="grid-button"/>
+
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+               <Button fx:id="button1" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover1" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+               <Button fx:id="button2" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover2" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+               <Button fx:id="button3" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover3" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+               <Button fx:id="button4" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover4" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <Button fx:id="button5" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover5" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <Button fx:id="button6" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover6" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+               <Button fx:id="button7" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover7" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <Button fx:id="button8" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover8" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <Button fx:id="button9" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover9" styleClass="hover-label" text="X" />
+            </StackPane>
          </children>
       </GridPane>
       <Button fx:id="newGame" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
+
+
+<!-- Popup Overlay -->
+<StackPane fx:id="popupPane" visible="false" styleClass="popup-background" layoutX="80.00" layoutY="310.00">
+    <VBox fx:id="popupBox" styleClass="popup-box" spacing="10" alignment="CENTER">
+        <Label fx:id="popupMessage" text="Winner!" styleClass="popup-text"/>
+        <Button text="OK" onAction="#closePopup" styleClass="popup-button"/>
+    </VBox>
+</StackPane>
+
+
+
+
    </children>
 </AnchorPane>

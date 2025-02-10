@@ -114,3 +114,39 @@
   -fx-background-radius: 5px;
   -fx-border-radius: 5px;
 }
+
+  .hover-label {
+    -fx-font-family: "Bungee";
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.popup-background {
+  -fx-background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  -fx-alignment: center; /* Ensures that content inside StackPane is centered */
+}
+
+.popup-box {
+  -fx-background-color: #BFA89A;
+  -fx-padding: 20;
+  -fx-border-color: black;
+  -fx-border-width: 2;
+  -fx-border-radius: 5;
+  -fx-pref-width: 200px; /* Fixed width */
+  -fx-pref-height: 100px; /* Fixed height */
+  -fx-alignment: center; /* Centers content inside the VBox */
+}
+
+.popup-text {
+  -fx-font-size: 16px; /* Smaller font size */
+  -fx-text-fill: black;
+  -fx-wrap-text: true; /* Ensures text wraps if it's too long */
+}
+
+.popup-button {
+  -fx-background-color: #4CAF50;
+  -fx-text-fill: white;
+  -fx-padding: 5 15;
+}

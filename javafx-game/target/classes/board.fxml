@@ -8,58 +8,103 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController" stylesheets="@board.css">
    <children>
       <!-- Back Button at Top Left -->
-      <Button onAction="#goToMainMenu" fx:id="backButton" text="←" styleClass="custom-button"
-          AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
-      <HBox layoutX="62.0" layoutY="75.0" prefHeight="75.0" prefWidth="240.0" alignment="CENTER" AnchorPane.leftAnchor="61.35" AnchorPane.rightAnchor="61.35" styleClass="score-box">
+      <Button fx:id="backButton" onAction="#goToMainMenu" styleClass="custom-button" text="←" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <HBox alignment="CENTER" layoutX="62.0" layoutY="75.0" prefHeight="75.0" prefWidth="240.0" styleClass="score-box" AnchorPane.leftAnchor="61.35" AnchorPane.rightAnchor="61.35">
          <children>
             <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square1">
                <children>
-                  <Label text="PLAYER X" styleClass="score-title"/>
-                  <Label text="0" fx:id="playerXScore" styleClass="score-value"/>
+                  <Label styleClass="score-title" text="PLAYER X" />
+                  <Label fx:id="playerXScore" styleClass="score-value" text="0" />
                </children>
             </VBox>
             <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square2">
                <children>
-                  <Label text="DRAW" styleClass="score-title"/>
-                  <Label text="0" fx:id="drawScore" styleClass="score-value"/>
+                  <Label styleClass="score-title" text="DRAW" />
+                  <Label fx:id="drawScore" styleClass="score-value" text="0" />
                </children>
             </VBox>
             <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square3">
                <children>
-                  <Label text="PLAYER O" styleClass="score-title"/>
-                  <Label text="0" fx:id="playerOScore" styleClass="score-value"/>
+                  <Label styleClass="score-title" text="PLAYER O" />
+                  <Label fx:id="playerOScore" styleClass="score-value" text="0" />
                </children>
             </VBox>
          </children>
       </HBox>
-      <GridPane alignment="CENTER" layoutX="40.0" layoutY="189.0" prefHeight="350.0" prefWidth="282.0" AnchorPane.bottomAnchor="169.56000000000006" AnchorPane.leftAnchor="40.30000000000001" AnchorPane.rightAnchor="40.30000000000001" AnchorPane.topAnchor="188.96000000000004" fx:id="gameGrid" styleClass="game-grid">
-        <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
-        </rowConstraints>
+      <GridPane fx:id="gameGrid" alignment="CENTER" layoutX="40.0" layoutY="189.0" prefHeight="350.0" prefWidth="282.0" styleClass="game-grid" AnchorPane.bottomAnchor="169.56" AnchorPane.leftAnchor="40.3" AnchorPane.rightAnchor="40.3" AnchorPane.topAnchor="188.96">
+         <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="ALWAYS" />
+         </rowConstraints>
          <children>
-            <Button fx:id="button1" mnemonicParsing="false" styleClass="grid-button"/>
-            <Button fx:id="button2" mnemonicParsing="false"  GridPane.columnIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button3" mnemonicParsing="false"  GridPane.columnIndex="2" styleClass="grid-button"/>
-            <Button fx:id="button4" mnemonicParsing="false"  GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button5" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button6" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="grid-button"/>
-            <Button fx:id="button7" mnemonicParsing="false"  GridPane.rowIndex="2" styleClass="grid-button"/>
-            <Button fx:id="button8" mnemonicParsing="false"  GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="grid-button"/>
-            <Button fx:id="button9" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="grid-button"/>
+
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+               <Button fx:id="button1" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover1" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+               <Button fx:id="button2" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover2" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+               <Button fx:id="button3" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover3" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+               <Button fx:id="button4" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover4" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <Button fx:id="button5" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover5" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <Button fx:id="button6" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover6" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+               <Button fx:id="button7" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover7" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <Button fx:id="button8" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover8" styleClass="hover-label" text="X" />
+            </StackPane>
+
+            <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <Button fx:id="button9" mnemonicParsing="false" styleClass="grid-button" />
+               <Label fx:id="buttonHover9" styleClass="hover-label" text="X" />
+            </StackPane>
          </children>
       </GridPane>
-      <Button fx:id="newGame" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
+      <Button fx:id="newGame" mnemonicParsing="false" styleClass="custom-button" text="New Game" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+
+<!-- Popup Overlay -->
+<StackPane fx:id="popupPane" visible="false" styleClass="popup-background" layoutX="80.00" layoutY="310.00">
+    <VBox fx:id="popupBox" styleClass="popup-box" spacing="10" alignment="CENTER">
+        <Label fx:id="popupMessage" text="Winner!" styleClass="popup-text"/>
+        <Button text="OK" onAction="#closePopup" styleClass="popup-button"/>
+    </VBox>
+</StackPane>
+
    </children>
 </AnchorPane>

@@ -13,6 +13,7 @@
 
 <AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.BoardController2" stylesheets="@board.css">
    <children>
+
       <!-- Back Button at Top Left -->
       <Button onAction="#goToMainMenu" fx:id="backButton" text="←" styleClass="custom-button"
           AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
@@ -98,5 +99,18 @@
          </children>
       </GridPane>
       <Button fx:id="newGame" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" mnemonicParsing="false" text="New Game" styleClass="custom-button"/>
+
+
+<!-- Popup Overlay -->
+<StackPane fx:id="popupPane" visible="false" styleClass="popup-background" layoutX="80.00" layoutY="310.00">
+    <VBox fx:id="popupBox" styleClass="popup-box" spacing="10" alignment="CENTER">
+        <Label fx:id="popupMessage" text="Winner!" styleClass="popup-text"/>
+        <Button text="OK" onAction="#closePopup" styleClass="popup-button"/>
+    </VBox>
+</StackPane>
+
+
+
+
    </children>
 </AnchorPane>

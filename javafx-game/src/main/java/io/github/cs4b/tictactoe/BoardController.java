@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class BoardController {
@@ -40,6 +41,12 @@ public class BoardController {
     
     @FXML
     private Label buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9;
+
+    @FXML
+    private StackPane popupPane; // Popup container
+    
+    @FXML
+    private Label popupMessage; // Popup text
 
     @FXML
     public void initialize() {
@@ -80,10 +87,17 @@ public class BoardController {
             for (int i = 0; i < 9; i++) {
                 labels[i].setVisible(false);
             }
-            if (currentPlayer == 'X') xWins++;
-            else oWins++;
+            if (currentPlayer == 'X'){
+                xWins++;
+                showPopup("Player X Wins!");
+            } 
+            else {
+                oWins++;
+                showPopup("Player O Wins!");
+            }
             updateScores();
             gameActive = false;
+            
             return;
         }
 
@@ -91,6 +105,7 @@ public class BoardController {
             draws++;
             updateScores();
             gameActive = false;
+            showPopup("It's a Tie!");
             return;
         }
 
@@ -163,5 +178,18 @@ public class BoardController {
             fadeIn.stop();
             fadeOut.playFromStart();
         });
+    }
+
+    private void showPopup(String message) {
+        popupMessage.setText(message);
+        popupPane.setVisible(true);
+        popupPane.setManaged(true);
+        popupPane.toFront(); // Ensures it stays on top
+    }
+    
+    @FXML
+    private void closePopup() {
+        popupPane.setVisible(false);
+        popupPane.setManaged(false);
     }
 }

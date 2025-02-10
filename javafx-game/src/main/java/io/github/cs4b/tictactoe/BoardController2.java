@@ -1,15 +1,13 @@
-// BoardController.java is the Singleplayer option
-
 package io.github.cs4b.tictactoe;
 
 import java.util.Random;
-
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class BoardController2 {
@@ -34,6 +32,12 @@ public class BoardController2 {
 
     @FXML
     private Button[] buttons; // Store button references
+
+    @FXML
+    private StackPane popupPane; // Popup container
+    
+    @FXML
+    private Label popupMessage; // Popup text
 
     private char[][] board = new char[3][3]; // Board state
     private boolean gameActive = true;
@@ -69,25 +73,21 @@ public class BoardController2 {
     }
 
     private void handlePlayerMove(int index) {
-        if (!gameActive || buttons[index].getText().isEmpty() == false) return;
+        if (!gameActive || !buttons[index].getText().isEmpty()) return;
         
         int row = index / 3, col = index % 3;
         board[row][col] = 'X';
-        
-        // Apply styling for X
-        //buttons[index].getStyleClass().clear();
+
         buttons[index].getStyleClass().add("x");
         buttons[index].setText("X");
 
         labels[index].setVisible(false);
 
         if (checkWin('X')) {
-            for (int i = 0; i < 9; i++) {
-                labels[i].setVisible(false);
-            }
             xWins++;
             updateScores();
             gameActive = false;
+            showPopup("Player X Wins!");
             return;
         }
 
@@ -95,6 +95,7 @@ public class BoardController2 {
             draws++;
             updateScores();
             gameActive = false;
+            showPopup("It's a Tie!");
             return;
         }
 
@@ -104,33 +105,40 @@ public class BoardController2 {
     private void aiMove() {
         if (!gameActive) return;
         
+        // Collect available moves
+        int[] availableMoves = new int[9];
+        int count = 0;
+        
         for (int i = 0; i < buttons.length; i++) {
             if (buttons[i].getText().isEmpty()) {
-                int row = i / 3, col = i % 3;
-                board[row][col] = 'O';
-                
-                // Apply styling for O
-                //buttons[i].getStyleClass().clear();
-                buttons[i].getStyleClass().add("o");
-                buttons[i].setText("O");
-
-                labels[i].setVisible(false);
-
-                break;
+                availableMoves[count++] = i;
             }
         }
-
+        
+        if (count == 0) return; // No moves available
+    
+        // Pick a random move
+        int randomIndex = random.nextInt(count);
+        int move = availableMoves[randomIndex];
+    
+        int row = move / 3, col = move % 3;
+        board[row][col] = 'O';
+    
+        buttons[move].getStyleClass().add("o");
+        buttons[move].setText("O");
+        labels[move].setVisible(false);
+    
+        // Check for win or tie
         if (checkWin('O')) {
             oWins++;
             updateScores();
             gameActive = false;
-            for (int i = 0; i < 9; i++) {
-                labels[i].setVisible(false);
-            }
+            showPopup("Player O Wins!");
         } else if (isBoardFull()) {
             draws++;
             updateScores();
             gameActive = false;
+            showPopup("It's a Tie!");
         }
     }
 
@@ -163,6 +171,7 @@ public class BoardController2 {
         
         for (Button button : buttons) button.setText("");
         gameActive = true;
+        popupPane.setVisible(false);
 
         for (int i = 0; i < 9; i++) {
             setupButtonHover(buttons[i], labels[i]);
@@ -191,4 +200,18 @@ public class BoardController2 {
             fadeOut.playFromStart();
         });
     }
+
+    private void showPopup(String message) {
+        popupMessage.setText(message);
+        popupPane.setVisible(true);
+        popupPane.setManaged(true);
+        popupPane.toFront(); // Ensures it stays on top
+    }
+    
+    @FXML
+    private void closePopup() {
+        popupPane.setVisible(false);
+        popupPane.setManaged(false);
+    }
+    
 }
