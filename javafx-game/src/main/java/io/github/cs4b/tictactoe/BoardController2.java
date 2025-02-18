@@ -34,15 +34,18 @@ public class BoardController2 {
     private Button[] buttons; // Store button references
 
     @FXML
-    private StackPane popupPane; // Popup container
+    private StackPane popupPane, turnSelectionPopup; // Popup container
     
     @FXML
-    private Label popupMessage; // Popup text
+    private Label popupMessage, turnSelectionMessage; // Popup text
+
+    @FXML
+    private Button playerFirstButton, aiFirstButton;
 
     private char[][] board = new char[3][3]; // Board state
     private boolean gameActive = true;
+    private boolean playerGoesFirst = true;
     private int xWins = 0, oWins = 0, draws = 0;
-    private Random random = new Random();
 
     @FXML
     private Label[] labels;
@@ -65,6 +68,18 @@ public class BoardController2 {
         
         newGame.setOnAction(e -> resetBoard());
         backButton.setOnAction(e -> goToMainMenu());
+
+        playerFirstButton.setOnAction(e -> {
+            playerGoesFirst = true;
+            startGame();
+        });
+
+        aiFirstButton.setOnAction(e -> {
+            playerGoesFirst = false;
+            startGame();
+        });
+
+        showTurnSelectionPopup(); // Show popup on entry
     }
 
     @FXML
@@ -104,43 +119,98 @@ public class BoardController2 {
 
     private void aiMove() {
         if (!gameActive) return;
-        
-        // Collect available moves
-        int[] availableMoves = new int[9];
-        int count = 0;
-        
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].getText().isEmpty()) {
-                availableMoves[count++] = i;
+
+        int bestScore = Integer.MIN_VALUE;
+        int bestMove = -1;
+    
+        // Loop through all possible moves
+        for (int i = 0; i < 9; i++) {
+            int row = i / 3, col = i % 3;
+    
+            if (board[row][col] == ' ') { // If the spot is empty
+                board[row][col] = 'O'; // AI makes a temporary move
+                int score = minimax(board, 0, false); // Run minimax
+                board[row][col] = ' '; // Undo move
+    
+                if (score > bestScore) { // Maximize AI's move
+                    bestScore = score;
+                    bestMove = i;
+                }
             }
         }
-        
-        if (count == 0) return; // No moves available
     
-        // Pick a random move
-        int randomIndex = random.nextInt(count);
-        int move = availableMoves[randomIndex];
+        // Make the best move found
+        if (bestMove != -1) {
+            int row = bestMove / 3, col = bestMove % 3;
+            board[row][col] = 'O';
+            buttons[bestMove].getStyleClass().add("o");
+            buttons[bestMove].setText("O");
+            labels[bestMove].setVisible(false);
     
-        int row = move / 3, col = move % 3;
-        board[row][col] = 'O';
-    
-        buttons[move].getStyleClass().add("o");
-        buttons[move].setText("O");
-        labels[move].setVisible(false);
-    
-        // Check for win or tie
-        if (checkWin('O')) {
-            oWins++;
-            updateScores();
-            gameActive = false;
-            showPopup("Player O Wins!");
-        } else if (isBoardFull()) {
-            draws++;
-            updateScores();
-            gameActive = false;
-            showPopup("It's a Tie!");
+            // Check if AI wins
+            if (checkWin('O')) {
+                oWins++;
+                updateScores();
+                gameActive = false;
+                showPopup("Player O Wins!");
+            } else if (isBoardFull()) {
+                draws++;
+                updateScores();
+                gameActive = false;
+                showPopup("It's a Tie!");
+            }
         }
     }
+    
+    
+    private int minimax(char[][] board, int depth, boolean isMaximizing) {
+    
+        if (checkWin('O')) {
+            return 10 - depth;  // AI wins faster, so subtract depth
+        }
+        if (checkWin('X')) {
+            return depth - 10;  // Player wins, minimize loss
+        }
+        if (isBoardFull()) {
+            return 0;
+        }
+    
+        if (isMaximizing) { // AI's turn
+            int maxEval = Integer.MIN_VALUE;
+            for (int i = 0; i < 9; i++) {
+                int row = i / 3, col = i % 3;
+                if (board[row][col] == ' ') {
+                    board[row][col] = 'O'; // AI makes a move
+                    int eval = minimax(board, depth + 1, false);
+                    board[row][col] = ' '; // Undo move
+                    maxEval = Math.max(maxEval, eval);
+                }
+            }
+            return maxEval;
+        } else { // Human's turn
+            int minEval = Integer.MAX_VALUE;
+            for (int i = 0; i < 9; i++) {
+                int row = i / 3, col = i % 3;
+                if (board[row][col] == ' ') {
+                    board[row][col] = 'X'; // Player makes a move
+                    int eval = minimax(board, depth + 1, true);
+                    board[row][col] = ' '; // Undo move
+                    minEval = Math.min(minEval, eval);
+                }
+            }
+            return minEval;
+        }
+    }
+    
+    // Helper function to print the board
+    private void printBoard(char[][] board) {
+        for (int i = 0; i < 3; i++) {
+            System.out.println(board[i][0] + " " + board[i][1] + " " + board[i][2]);
+        }
+        System.out.println();
+    }
+    
+    
 
     private boolean checkWin(char player) {
         for (int i = 0; i < 3; i++) {
@@ -152,12 +222,23 @@ public class BoardController2 {
     }
 
     private boolean isBoardFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false; // Empty spot found, board is not full
+                }
+            }
+        }
+        return true; // No empty spots, board is full
+    }
+/* 
+    private boolean isBoardFull() {
         for (Button button : buttons) {
             if (button.getText().isEmpty()) return false;
         }
         return true;
     }
-
+*/
     private void updateScores() {
         playerXScore.setText(String.valueOf(xWins));
         drawScore.setText(String.valueOf(draws));
@@ -176,6 +257,8 @@ public class BoardController2 {
         for (int i = 0; i < 9; i++) {
             setupButtonHover(buttons[i], labels[i]);
         }
+
+        showTurnSelectionPopup(); // Ask who goes first
     }
 
     private void setupButtonHover(Button button, Label label) {
@@ -206,12 +289,52 @@ public class BoardController2 {
         popupPane.setVisible(true);
         popupPane.setManaged(true);
         popupPane.toFront(); // Ensures it stays on top
+    
+        setBoardInteraction(false); // Disable interaction
     }
     
     @FXML
     private void closePopup() {
         popupPane.setVisible(false);
         popupPane.setManaged(false);
+    
+        setBoardInteraction(true); // Re-enable interaction
+    }
+
+    private void startGame() {
+        turnSelectionPopup.setVisible(false);
+        setBoardInteraction(true); // Allow interaction once popup is gone
+    
+        if (!playerGoesFirst) aiFirstMove(); // AI picks a random corner if it goes first
+    }
+
+    private void showTurnSelectionPopup() {
+        turnSelectionPopup.setVisible(true);
+        setBoardInteraction(false); // Disable interaction while choosing who goes first
+    }
+
+    private void setBoardInteraction(boolean enabled) {
+        for (Button button : buttons) {
+            button.setDisable(!enabled); // Disable/enable clicking
+        }
+        for (Label label : labels) {
+            label.setVisible(enabled); // Disable hover effect
+        }
+    }
+
+    private void aiFirstMove() {
+        // AI chooses a random corner: (0,0), (0,2), (2,0), (2,2)
+        int[] corners = {0, 2, 6, 8};
+        int randomIndex = new Random().nextInt(4);
+        int move = corners[randomIndex];
+    
+        int row = move / 3;
+        int col = move % 3;
+    
+        board[row][col] = 'O';
+        buttons[move].getStyleClass().add("o");
+        buttons[move].setText("O");
+        labels[move].setVisible(false);
     }
     
 }

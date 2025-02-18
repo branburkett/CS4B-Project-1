@@ -109,7 +109,16 @@
     </VBox>
 </StackPane>
 
+<!-- NEW: Turn Selection Popup -->
 
+
+    <StackPane fx:id="turnSelectionPopup" visible="false" styleClass="popup-background" layoutX="80.00" layoutY="310.00">
+      <VBox fx:id="popupBox" styleClass="popup-box" spacing="10" alignment="CENTER">
+         <Label fx:id="turnSelectionMessage" text="Who should go first?!" styleClass="popup-label"/>
+         <Button fx:id="playerFirstButton" text="Player" onAction="#closePopup" styleClass="popup-button"/>
+         <Button fx:id="aiFirstButton" text="AI" onAction="#closePopup" styleClass="popup-button"/>
+      </VBox>
+   </StackPane>
 
 
    </children>
