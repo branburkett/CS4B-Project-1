@@ -93,6 +93,7 @@ public class BoardController2 {
         int row = index / 3, col = index % 3;
         board[row][col] = 'X';
 
+        buttons[index].getStyleClass().removeAll("x", "o"); // Remove old styles
         buttons[index].getStyleClass().add("x");
         buttons[index].setText("X");
 
@@ -143,6 +144,7 @@ public class BoardController2 {
         if (bestMove != -1) {
             int row = bestMove / 3, col = bestMove % 3;
             board[row][col] = 'O';
+            buttons[bestMove].getStyleClass().removeAll("x", "o");
             buttons[bestMove].getStyleClass().add("o");
             buttons[bestMove].setText("O");
             labels[bestMove].setVisible(false);
@@ -152,7 +154,7 @@ public class BoardController2 {
                 oWins++;
                 updateScores();
                 gameActive = false;
-                showPopup("Player O Wins!");
+                showPopup("AI O Wins!");
             } else if (isBoardFull()) {
                 draws++;
                 updateScores();
@@ -250,7 +252,11 @@ public class BoardController2 {
             for (int j = 0; j < 3; j++) 
                 board[i][j] = ' ';
         
-        for (Button button : buttons) button.setText("");
+        for (Button button : buttons){
+            button.setText("");
+            button.getStyleClass().removeAll("x", "o"); // Remove styles
+        } 
+        
         gameActive = true;
         popupPane.setVisible(false);
 

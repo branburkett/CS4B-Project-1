@@ -33,7 +33,7 @@
             </VBox>
             <VBox prefHeight="75.0" prefWidth="75.0" styleClass="score-square3">
                <children>
-                  <Label text="PLAYER O" styleClass="score-title"/>
+                  <Label text="AI O" styleClass="score-title"/>
                   <Label text="0" fx:id="playerOScore" styleClass="score-value"/>
                </children>
             </VBox>

@@ -5,8 +5,10 @@
 
 /*6. Sand & Surf (Coastal & Relaxed) */
 .root {
-  -fx-background-color: #8D6E63; /* (Driftwood Brown) */
-  background-color: #8D6E63;     /* General CSS property for compatibility */
+  /*-fx-background-color: #8D6E63; /* (Driftwood Brown) */
+  /*background-color: #8D6E63;     /* General CSS property for compatibility */
+  -fx-background-color: #2d2a32; /* (Driftwood Brown) */
+  background-color: #2d2a32;     /* General CSS property for compatibility */
 }
 
 .score-title {
@@ -29,7 +31,7 @@
   -fx-pref-width: 75px;
   -fx-pref-height: 75px;
   -fx-alignment: center;
-  -fx-background-color: #3BCEAC; /* Match grid button */
+  -fx-background-color: #e67f9a; /* Match grid button */
   -fx-border-width: 2px;
   -fx-border-radius: 5px;
   -fx-background-radius: 5px;
@@ -41,7 +43,7 @@
   -fx-pref-width: 75px;
   -fx-pref-height: 75px;
   -fx-alignment: center;
-  -fx-background-color: #BFA89A; /* Match grid button */
+  -fx-background-color: #a19eaa; /* Match grid button */
   -fx-border-width: 2px;
   -fx-border-radius: 5px;
   -fx-background-radius: 5px;
@@ -53,7 +55,7 @@
   -fx-pref-width: 75px;
   -fx-pref-height: 75px;
   -fx-alignment: center;
-  -fx-background-color: #EAC435; /* Match grid button */
+  -fx-background-color: #f4e04d; /* Match grid button */
   -fx-border-width: 2px;
   -fx-border-radius: 5px;
   -fx-background-radius: 5px;
@@ -77,7 +79,7 @@
   -fx-pref-width: 100px;
   -fx-pref-height: 100px;
   -fx-opacity: 1; /* Ensure the button is not transparent */
-  -fx-background-color: #BFA89A; /* Purple */
+  -fx-background-color: #a19eaa; /* Purple */
   -fx-text-fill: white;
   -fx-font-size: 20px;
   -fx-font-weight: bold;
@@ -89,16 +91,16 @@
 .grid-button.x {
   -fx-font-family: "Bungee";
   -fx-font-size: 40px;
-  -fx-text-fill: #3BCEAC;
-  -fx-background-color: #BFA89A; /* Keeps light brown background */
+  -fx-text-fill: #e67f9a;
+  -fx-background-color: #a19eaa; /* Keeps light brown background */
   -fx-alignment: center;
 }
 
 .grid-button.o {
   -fx-font-family: "Bungee";
   -fx-font-size: 40px;
-  -fx-text-fill: #EAC435;
-  -fx-background-color: #BFA89A; /* Keeps light brown background */
+  -fx-text-fill: #f4e04d;
+  -fx-background-color: #a19eaa; /* Keeps light brown background */
   -fx-alignment: center;
 }
 
@@ -129,7 +131,7 @@
 }
 
 .popup-box {
-  -fx-background-color: #BFA89A;
+  -fx-background-color: #a19eaa;
   -fx-padding: 20;
   -fx-border-color: black;
   -fx-border-width: 2;

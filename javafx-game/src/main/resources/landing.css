@@ -26,20 +26,23 @@
 
 /*6. Sand & Surf (Coastal & Relaxed) */
 .root {
-  -fx-background-color: #8D6E63; /* (Driftwood Brown) */
-  background-color: #8D6E63;     /* General CSS property for compatibility */
+  /*-fx-background-color: #8D6E63; /* (Driftwood Brown) */
+  /*background-color: #8D6E63;     /* General CSS property for compatibility */
+  -fx-background-color: #2d2a32; /* (Driftwood Brown) */
+  background-color: #2d2a32;     /* General CSS property for compatibility */
 }
 
 .custom-text1 {
   -fx-font-family: "Modak";
   -fx-font-size: 60px;
-  -fx-text-fill: #EAC435; /* (Golden Sand) */
+  /*-fx-text-fill: #EAC435; /* (Golden Sand) */
+  -fx-text-fill: #e67f9a;
 }
 
 .custom-text2 {
   -fx-font-family: "Modak";
   -fx-font-size: 60px;
-  -fx-text-fill: #3BCEAC; /* (Teal Ocean) */
+  -fx-text-fill: #f4e04d; 
 }
 
 .custom-button {
@@ -48,7 +51,7 @@
   -fx-alignment: center; /* Ensures centering */
   -fx-font-size: 14px;
   
-  -fx-background-color: #3BCEAC; /* Tropical Coral */
+  -fx-background-color: #f4e04d; /* Tropical Coral */
   /*-fx-background-color: #FF6B6B; /* Tropical Coral */
   -fx-text-fill: white; /* White text for contrast */
   
@@ -56,7 +59,7 @@
   -fx-border-radius: 5px;
   -fx-background-radius: 5px;
   
-  -fx-border-color: #EAC435; /* Teal Ocean */
+  -fx-border-color: #e67f9a; 
   -fx-border-width: 3px;
 
 
