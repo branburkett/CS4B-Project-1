@@ -1,15 +1,13 @@
-// BoardController3.java is for Network 2-Player
+package tictactoe;
 
-package io.github.cs4b.tictactoe;
+import java.io.IOException;
+import java.net.Socket;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.util.Random;
 
 public class BoardController3 {
 
@@ -37,74 +35,74 @@ public class BoardController3 {
     private char[][] board = new char[3][3]; // Board state
     private boolean gameActive = true;
     private int xWins = 0, oWins = 0, draws = 0;
-    private Random random = new Random();
+
+    private NetworkManager networkManager;
+    private char mySymbol = 'X';
+    private boolean myTurn = true;
 
     @FXML
     public void initialize() {
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         resetBoard();
-        
+
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            networkManager = new NetworkManager(socket);
+            new Thread(this::listenToServer).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
             buttons[i].setOnAction(e -> handlePlayerMove(index));
         }
-        
+
         newGame.setOnAction(e -> resetBoard());
         backButton.setOnAction(e -> goToMainMenu());
     }
 
-    @FXML
-    private void goToMainMenu() {
-        TicTacToeApp.showLandingScreen();
-    }
-
     private void handlePlayerMove(int index) {
-        if (!gameActive || buttons[index].getText().isEmpty() == false) return;
-        
+        if (!gameActive || !buttons[index].getText().isEmpty() || !myTurn) return;
+
         int row = index / 3, col = index % 3;
-        board[row][col] = 'X';
-        
-        // Apply styling for X
-        //buttons[index].getStyleClass().clear();
-        buttons[index].getStyleClass().add("x");
-        buttons[index].setText("X");
+        String movePayload = row + "," + col + "," + mySymbol;
 
-        if (checkWin('X')) {
-            xWins++;
-            updateScores();
-            gameActive = false;
-            return;
+        try {
+            networkManager.sendMessage(new Message(Message.MessageType.MOVE_MADE, movePayload));
+            myTurn = false;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        if (isBoardFull()) {
-            draws++;
-            updateScores();
-            gameActive = false;
-            return;
-        }
-
-        aiMove();
     }
 
-    private void aiMove() {
-        if (!gameActive) return;
-        
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].getText().isEmpty()) {
-                int row = i / 3, col = i % 3;
-                board[row][col] = 'O';
-                
-                // Apply styling for O
-                //buttons[i].getStyleClass().clear();
-                buttons[i].getStyleClass().add("o");
-                buttons[i].setText("O");
-
-                break;
+    // Update board based on data from server
+    private void updateCellFromServer(String payload) {
+        // Extract row, column, and symbol from the payload
+        String[] parts = payload.split(",");
+        int row = Integer.parseInt(parts[0]);
+        int col = Integer.parseInt(parts[1]);
+        char symbol = parts[2].charAt(0);
+    
+        // Update the board array
+        board[row][col] = symbol;
+    
+        // Get the index of the button corresponding to the cell (row, col)
+        int index = row * 3 + col;
+    
+        // Update the button text to show the player's symbol
+        buttons[index].setText(String.valueOf(symbol));
+    
+        // Add style based on the symbol (X or O)
+        buttons[index].getStyleClass().add(symbol == 'X' ? "x" : "o");
+    
+        // Check for win or draw conditions
+        if (checkWin(symbol)) {
+            if (symbol == 'X') {
+                xWins++;
+            } else {
+                oWins++;
             }
-        }
-
-        if (checkWin('O')) {
-            oWins++;
             updateScores();
             gameActive = false;
         } else if (isBoardFull()) {
@@ -112,6 +110,55 @@ public class BoardController3 {
             updateScores();
             gameActive = false;
         }
+    }
+    
+
+    private void listenToServer() {
+        try {
+            while (true) {
+                Message msg = networkManager.receiveMessage();
+    
+                switch (msg.type) {
+                    case GAME_START:
+                        myTurn = msg.isYourTurn;
+                        break;
+                    case MOVE_MADE:
+                        updateCellFromServer(msg.payload); // Update board from server message
+                        myTurn = msg.isYourTurn;
+                        break;
+                    case GAME_OVER:
+                        break;
+                    case INVALID_MOVE:
+                        //updateStatus("Invalid move! Try again.");
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // To update UI
+    private void updateCell(int row, int col, String symbol) {
+        board[row][col] = symbol.charAt(0);
+        int index = row * 3 + col;
+        buttons[index].getStyleClass().add(symbol.equals("X") ? "x" : "o");
+        buttons[index].setText(symbol);
+
+        if (checkWin(symbol.charAt(0))) {
+            if (symbol.equals("X")) xWins++; else oWins++;
+            updateScores();
+            gameActive = false;
+        } else if (isBoardFull()) {
+            draws++;
+            updateScores();
+            gameActive = false;
+        }
+    }
+
+    @FXML
+    private void goToMainMenu() {
+        TicTacToeApp.showLandingScreen();
     }
 
     private boolean checkWin(char player) {
@@ -143,5 +190,6 @@ public class BoardController3 {
         
         for (Button button : buttons) button.setText("");
         gameActive = true;
+        myTurn = true; // Reset to the starting turn
     }
 }
