@@ -20,7 +20,7 @@ public class LoadingController {
     @FXML
     public void initialize() {
         try {
-            Socket socket = new Socket("localhost", 12345);
+            Socket socket = new Socket("localhost", GameServer.PORT); // change "localhost" to IP address of device acting as server
             networkManager = new NetworkManager(socket);
             new Thread(this::listenToServer).start();
         } catch (IOException e) {
@@ -31,5 +31,18 @@ public class LoadingController {
     @FXML
     private void backToMenu() {
         TicTacToeApp.showLandingScreen();
+    }
+
+    private void listenToServer() {
+        try {
+            while(true) {
+                Message message = networkManager.receiveMessage();
+                if (message == Message.MessageType.GAME_START) {
+                    TicTacToeApp.showNetworkBoardScreen();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

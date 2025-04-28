@@ -40,8 +40,12 @@ public class BoardController3 {
     private char mySymbol = 'X';
     private boolean myTurn = true;
 
+    BoardController3(NetworkManager _networkManager) {
+        networkManager = _networkManager;
+    }
     @FXML
     public void initialize() {
+        networkManager = getNetworkManager();
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         resetBoard();
 

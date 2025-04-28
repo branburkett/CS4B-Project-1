@@ -92,4 +92,8 @@ public class GameServer {
                 if (c == '\0') return false;
         return true;
     }
+    public static void main(String[] args) {
+        GameServer gameServer = new GameServer();
+        gameServer.start();
+    }
 }
