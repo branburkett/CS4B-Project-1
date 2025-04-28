@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.cs4b.tictactoe.LandingController"> 
+<AnchorPane prefHeight="708.96" prefWidth="362.7" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.LandingController"> 
     <Label layoutX="-10.0" layoutY="-30.0" style="-fx-font-size: 170;" styleClass="custom-text1" text="tic" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="-30.0" />
     <Label layoutX="-10.0" layoutY="262.0" style="-fx-font-size: 170px;" styleClass="custom-text1" text="toe" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="262.0" />
     <Label layoutX="-10.0" layoutY="115.0" style="-fx-font-size: 170px;" styleClass="custom-text2" text="tac" AnchorPane.leftAnchor="-10.0" AnchorPane.topAnchor="115.0" />
