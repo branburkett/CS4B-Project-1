@@ -12,6 +12,8 @@ public class TicTacToeApp extends Application {
     public static final double WINDOW_WIDTH = (double)1170 * 0.31;
     public static final double WINDOW_HEIGHT = (double)2532 * 0.28;
 
+    NetworkManager network;
+
     @Override
     public void start(Stage stage) {
         primaryStage = stage;
@@ -81,6 +83,13 @@ public class TicTacToeApp extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public NetworkManager getNetworkManager() {
+        return network;
+    }
+    public void setNetworkManager(NetworkManager networkManager) {
+        network = nm;
     }
     
     public static void showLoadingScreen() {
