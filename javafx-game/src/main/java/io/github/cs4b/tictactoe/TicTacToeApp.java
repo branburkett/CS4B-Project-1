@@ -1,4 +1,4 @@
-package io.github.cs4b.tictactoe;
+package tictactoe;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +20,11 @@ public class TicTacToeApp extends Application {
 
     public static void showLandingScreen() {
         try {
-            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/landing.fxml"));
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/landing.fxml"));
             Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             // Add the CSS file to the scene
-            scene.getStylesheets().add(TicTacToeApp.class.getResource("/landing.css").toExternalForm());
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/landing.css").toExternalForm());
             System.out.println("landing.css");
             primaryStage.setScene(scene);
             primaryStage.setTitle("Tic Tac Toe - Landing");
@@ -37,11 +37,11 @@ public class TicTacToeApp extends Application {
     //showBoardScreen is the Single Player mode
     public static void showBoardScreen() {
         try {
-            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/board2.fxml"));
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/board2.fxml"));
             Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             // Add the CSS file to the scene
-            scene.getStylesheets().add(TicTacToeApp.class.getResource("/board.css").toExternalForm());
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
             System.out.println("board2.css");
 
             primaryStage.setScene(scene);
@@ -53,11 +53,11 @@ public class TicTacToeApp extends Application {
 
     public static void showLocalBoardScreen() {
         try {
-            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/board.fxml"));
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/board.fxml"));
             Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             // Add the CSS file to the scene
-            scene.getStylesheets().add(TicTacToeApp.class.getResource("/board.css").toExternalForm());
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
             System.out.println("board.css");
 
             primaryStage.setScene(scene);
@@ -69,15 +69,31 @@ public class TicTacToeApp extends Application {
 
     public static void showNetworkBoardScreen() {
         try {
-            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/board3.fxml"));
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/board3.fxml"));
             Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             // Add the CSS file to the scene
-            scene.getStylesheets().add(TicTacToeApp.class.getResource("/board.css").toExternalForm());
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
             System.out.println("board3.css");
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Tic Tac Toe - Network 2-Player");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void showLoadingScreen() {
+        try {
+            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/loading.fxml"));
+            Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+            // Add the CSS file to the scene
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
+            System.out.println("board.css");
+
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Loading Screen");
         } catch (Exception e) {
             e.printStackTrace();
         }

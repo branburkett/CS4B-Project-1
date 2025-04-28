@@ -1,4 +1,4 @@
-package io.github.cs4b.tictactoe;
+package tictactoe;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,6 +19,6 @@ public class LandingController {
 
     @FXML
     private void startNetworkGame() {
-        TicTacToeApp.showNetworkBoardScreen();
+        TicTacToeApp.showLoadingScreen();
     }
 }
