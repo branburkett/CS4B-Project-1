@@ -37,7 +37,7 @@ public class LoadingController {
         try {
             while(true) {
                 Message message = networkManager.receiveMessage();
-                if (message == Message.MessageType.GAME_START) {
+                if (message.type == Message.MessageType.GAME_START) {
                     TicTacToeApp.showNetworkBoardScreen();
                 }
             }
