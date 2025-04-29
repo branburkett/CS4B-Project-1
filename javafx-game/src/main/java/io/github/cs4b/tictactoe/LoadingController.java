@@ -20,7 +20,7 @@ public class LoadingController {
     @FXML
     public void initialize() {
         try {
-            Socket socket = new Socket("localhost", GameServer.PORT); // change "localhost" to IP address of device acting as server
+            Socket socket = new Socket("localhost", 12345); // change "localhost" to IP address of device acting as server
             networkManager = new NetworkManager(socket);
             new Thread(this::listenToServer).start();
         } catch (IOException e) {
