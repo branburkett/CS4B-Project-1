@@ -89,7 +89,7 @@ public class TicTacToeApp extends Application {
         return network;
     }
     public void setNetworkManager(NetworkManager networkManager) {
-        network = nm;
+        network = networkManager;
     }
     
     public static void showLoadingScreen() {
