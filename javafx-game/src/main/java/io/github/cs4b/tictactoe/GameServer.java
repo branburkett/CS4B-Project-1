@@ -15,7 +15,8 @@ public class GameServer {
     private char currentTurn = 'X';
 
     public static void main(String[] args) throws IOException {
-        new GameServer().start();
+        GameServer gameServer = new GameServer();
+        gameServer.start();
     }
 
     public void start() throws IOException {
@@ -28,16 +29,18 @@ public class GameServer {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
             clients.add(out);
-            out.writeObject(new Message(Message.MessageType.PLAYER_CONNECTED, "You are player " + (clients.size() == 1 ? "X" : "O")));
+            out.writeObject(new PlayerConnected((clients.size() == 1 ? "X" : "O")));
 
             new Thread(() -> handleClient(in, out)).start();
         }
+        broadcast(new GameStart("Game has started"));
     }
 
     private void handleClient(ObjectInputStream in, ObjectOutputStream out) {
         try {
             while (true) {
                 Message msg = (Message) in.readObject();
+                System.out.println(msg.type.toString());
                 if (msg.type == Message.MessageType.MOVE_MADE) {
                     String[] parts = msg.payload.split(",");
                     int row = Integer.parseInt(parts[0]);
@@ -91,9 +94,5 @@ public class GameServer {
             for (char c : row)
                 if (c == '\0') return false;
         return true;
-    }
-    public static void main(String[] args) {
-        GameServer gameServer = new GameServer();
-        gameServer.start();
     }
 }

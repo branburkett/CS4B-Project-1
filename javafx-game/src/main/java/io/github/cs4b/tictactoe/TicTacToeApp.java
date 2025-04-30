@@ -1,5 +1,7 @@
 package tictactoe;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,9 @@ public class TicTacToeApp extends Application {
     public static final double WINDOW_WIDTH = (double)1170 * 0.31;
     public static final double WINDOW_HEIGHT = (double)2532 * 0.28;
 
-    NetworkManager network;
+    static NetworkManager network;
+    static char mySymbol;
+
 
     @Override
     public void start(Stage stage) {
@@ -70,26 +74,34 @@ public class TicTacToeApp extends Application {
     }
 
     public static void showNetworkBoardScreen() {
-        try {
-            Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/board3.fxml"));
-            Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+    try {
+        // Store fxml so that we can store the NetworkManager in the controller
+        FXMLLoader loader = new FXMLLoader(TicTacToeApp.class.getResource("/tictactoe/board3.fxml"));
+        Parent root = loader.load();
+        
+        BoardController3 controller = loader.getController();
+        controller.setNetworkManager(network);
+        controller.setSymbol(mySymbol);
 
-            // Add the CSS file to the scene
-            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
-            System.out.println("board3.css");
+        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+        scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
 
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Tic Tac Toe - Network 2-Player");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Tic Tac Toe - Network Game");
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     public NetworkManager getNetworkManager() {
         return network;
     }
-    public void setNetworkManager(NetworkManager networkManager) {
-        network = networkManager;
+    public static void setNetworkManager(NetworkManager nm) {
+        network = nm;
+    }
+    public static void setSymbol(char symbol) {
+        mySymbol = symbol;
     }
     
     public static void showLoadingScreen() {

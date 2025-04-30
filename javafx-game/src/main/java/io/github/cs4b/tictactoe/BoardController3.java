@@ -1,7 +1,6 @@
 package tictactoe;
 
 import java.io.IOException;
-import java.net.Socket;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,25 +36,25 @@ public class BoardController3 {
     private int xWins = 0, oWins = 0, draws = 0;
 
     private NetworkManager networkManager;
-    private char mySymbol = 'X';
-    private boolean myTurn = true;
+    private char mySymbol;
+    private boolean myTurn;
 
-    BoardController3(NetworkManager _networkManager) {
-        networkManager = _networkManager;
+    public void setNetworkManager(NetworkManager manager) {
+        this.networkManager = manager;
+        new Thread(this::listenToServer).start();
     }
+    public void setSymbol(char symbol) {
+        this.mySymbol = symbol;
+    }
+    public void setInitStatus(char symbol, boolean isYourTurn) {
+        this.mySymbol = symbol;
+        this.myTurn = isYourTurn;
+    }
+
     @FXML
     public void initialize() {
-        networkManager = getNetworkManager();
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
         resetBoard();
-
-        try {
-            Socket socket = new Socket("localhost", 12345);
-            networkManager = new NetworkManager(socket);
-            new Thread(this::listenToServer).start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
@@ -121,11 +120,11 @@ public class BoardController3 {
         try {
             while (true) {
                 Message msg = networkManager.receiveMessage();
+                if (msg == null) {
+                    break;
+                }
     
                 switch (msg.type) {
-                    case GAME_START:
-                        myTurn = msg.isYourTurn;
-                        break;
                     case MOVE_MADE:
                         updateCellFromServer(msg.payload); // Update board from server message
                         myTurn = msg.isYourTurn;
