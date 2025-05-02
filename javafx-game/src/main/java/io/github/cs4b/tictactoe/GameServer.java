@@ -29,11 +29,11 @@ public class GameServer {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
             clients.add(out);
-            out.writeObject(new PlayerConnected((clients.size() == 1 ? "X" : "O")));
+            out.writeObject(new Message.PlayerConnected((clients.size() == 1 ? "X" : "O")));
 
             new Thread(() -> handleClient(in, out)).start();
         }
-        broadcast(new GameStart("Game has started"));
+        broadcast(new Message.GameStart("Game has started"));
     }
 
     private void handleClient(ObjectInputStream in, ObjectOutputStream out) {
@@ -46,6 +46,7 @@ public class GameServer {
                     int row = Integer.parseInt(parts[0]);
                     int col = Integer.parseInt(parts[1]);
                     char symbol = parts[2].charAt(0);
+
     
                     if (board[row][col] == '\0' && symbol == currentTurn) {
                         board[row][col] = symbol;

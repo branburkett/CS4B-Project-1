@@ -24,7 +24,7 @@ public void initialize() {
     try {
         Socket socket = new Socket("localhost", 12345);
         NetworkManager manager = new NetworkManager(socket);
-        manager.sendMessage(new PlayerConnected("Player Connected"));
+        manager.sendMessage(new Message.PlayerConnected("Player Connected"));
         TicTacToeApp.setNetworkManager(manager); // Store for BoardController to use
 
         Task<Void> listenerTask = new Task<>() {

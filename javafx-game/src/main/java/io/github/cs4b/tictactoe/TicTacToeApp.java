@@ -81,7 +81,7 @@ public class TicTacToeApp extends Application {
         
         BoardController3 controller = loader.getController();
         controller.setNetworkManager(network);
-        controller.setSymbol(mySymbol);
+        controller.setInitStatus(mySymbol, (mySymbol == 'X')); // Makes it the players turn if their symbol is X
 
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());

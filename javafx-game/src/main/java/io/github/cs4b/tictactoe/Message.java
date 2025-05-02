@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
     public enum MessageType {
+        // remove toString override when done, used just for tseting
         PLAYER_CONNECTED {
             @Override
             public String toString() {
@@ -68,5 +69,58 @@ public class Message implements Serializable {
         this.type = type;
         this.payload = payload;
         this.isYourTurn = isYourTurn;
+    }
+
+    public static class GameOver extends Message {
+        public GameOver(String resultMessage) {
+            super(MessageType.GAME_OVER, resultMessage);
+        }
+    }
+    public static class GameStart extends Message {
+        public GameStart(String message) {
+            super(MessageType.GAME_START, message);
+        }
+    }
+    public static class InvalidMove extends Message {
+        public InvalidMove(String message) {
+            super(MessageType.INVALID_MOVE, message);
+        }
+    }
+    public static class MoveMade extends Message {
+        private int row;
+        private int col;
+        private char symbol;
+
+        public MoveMade(int row, int col, char symbol) {
+            super(MessageType.MOVE_MADE, row + "," + col + "," + symbol);
+            this.row = row;
+            this.col = col;
+            this.symbol = symbol;
+        }
+        public MoveMade(String message) {
+            super(MessageType.MOVE_MADE, message);
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getCol() {
+            return col;
+        }
+
+        public char getSymbol() {
+            return symbol;
+        }
+    }
+    public static class PlayerConnected extends Message {
+        public PlayerConnected(String message) {
+            super(MessageType.PLAYER_CONNECTED, message);
+        }
+    }
+    public static class PlayerDC extends Message {
+        public PlayerDC(String message) {
+            super(MessageType.PLAYER_DISCONNECTED, message);
+        }
     }
 }
