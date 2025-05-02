@@ -5,14 +5,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="board.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.LoadingController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.LoadingController" styleClass="root">
    <children>
-      <Button fx:id="backButton" layoutX="241.0" layoutY="309.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Main Menu" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100" />
-      <Label fx:id="loadingLabel" layoutX="188.0" layoutY="138.0" text="Waiting for Player 2..." AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
-
-         <font>
-            <Font size="24.0" />
-         </font>
+      <Button fx:id="backButton" 
+        mnemonicParsing="false" 
+        onAction="#backToMenu" 
+        text="Back to Main Menu" 
+        styleClass="custom-button" 
+        AnchorPane.leftAnchor="50" 
+        AnchorPane.rightAnchor="50" 
+        AnchorPane.bottomAnchor="150" />
+      <Label fx:id="loadingLabel" 
+       layoutX="-10" 
+       layoutY="50" 
+       text="waiting" 
+       styleClass="custom-text1" 
+       AnchorPane.leftAnchor="10" 
+       AnchorPane.rightAnchor="10">
+         <wrapText>true</wrapText>
+      </Label>
+      <Label fx:id="loadingLabel" 
+       layoutX="-10" 
+       layoutY="150" 
+       text="for" 
+       styleClass="custom-text2" 
+       AnchorPane.leftAnchor="10" 
+       AnchorPane.rightAnchor="10">
+         <wrapText>true</wrapText>
+      </Label>
+      <Label fx:id="loadingLabel" 
+       layoutX="-10" 
+       layoutY="250" 
+       text="player 2" 
+       styleClass="custom-text1" 
+       AnchorPane.leftAnchor="10">
          <wrapText>true</wrapText>
       </Label>
    </children>
