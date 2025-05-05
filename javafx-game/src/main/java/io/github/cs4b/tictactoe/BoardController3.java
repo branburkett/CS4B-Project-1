@@ -2,11 +2,14 @@ package tictactoe;
 
 import java.io.IOException;
 
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 public class BoardController3 {
 
@@ -31,9 +34,14 @@ public class BoardController3 {
     @FXML
     private Button[] buttons; // Store button references
 
+    @FXML
+    private Label[] labels;
+
+    @FXML
+    private Label buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9;
+
     private char[][] board = new char[3][3]; // Board state
     private boolean gameActive = true;
-    private int xWins = 0, oWins = 0, draws = 0;
 
     private NetworkManager networkManager;
     private char mySymbol;
@@ -43,22 +51,27 @@ public class BoardController3 {
         this.networkManager = manager;
         new Thread(this::listenToServer).start();
     }
-    public void setSymbol(char symbol) {
-        this.mySymbol = symbol;
-    }
     public void setInitStatus(char symbol, boolean isYourTurn) {
         this.mySymbol = symbol;
         this.myTurn = isYourTurn;
+        Platform.runLater(() -> {                           // Initialize labels in here because the symbol is
+            for (int i = 0; i < buttons.length; i++) {      // set before we setup the labels
+                setupButtonHover(buttons[i], labels[i]);
+            }
+        });
     }
 
     @FXML
     public void initialize() {
         buttons = new Button[]{button1, button2, button3, button4, button5, button6, button7, button8, button9};
+        labels = new Label[]{buttonHover1, buttonHover2, buttonHover3, buttonHover4, buttonHover5, buttonHover6, buttonHover7, buttonHover8, buttonHover9};
         resetBoard();
 
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
             buttons[i].setOnAction(e -> handlePlayerMove(index));
+
+            //setupButtonHover(buttons[i], labels[i]);
         }
 
         newGame.setOnAction(e -> resetBoard());
@@ -117,66 +130,40 @@ public class BoardController3 {
                         break;
                     case TURN_CHANGE:
                         myTurn = !myTurn;
+                        toggleLabels(myTurn);
                     case GAME_OVER:
                         System.out.println(msg.payload);
+                        Platform.runLater(() -> updateScores(msg.payload)); // Run on javafx UI thread
                         break;
                     case INVALID_MOVE:
-                        //updateStatus("Invalid move! Try again.");
                         break;
+                    case GAME_START:
+                        
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
-
-    /*
-    // To update UI
-    private void updateCell(int row, int col, String symbol) {
-        board[row][col] = symbol.charAt(0);
-        int index = row * 3 + col;
-        buttons[index].getStyleClass().add(symbol.equals("X") ? "x" : "o");
-        buttons[index].setText(symbol);
-
-        if (checkWin(symbol.charAt(0))) {
-            if (symbol.equals("X")) xWins++; else oWins++;
-            updateScores();
-            gameActive = false;
-        } else if (isBoardFull()) {
-            draws++;
-            updateScores();
-            gameActive = false;
-        }
-    }
-        */
 
     @FXML
     private void goToMainMenu() {
         TicTacToeApp.showLandingScreen();
     }
 
-    /*
-    private boolean checkWin(char player) {
-        for (int i = 0; i < 3; i++) {
-            if ((board[i][0] == player && board[i][1] == player && board[i][2] == player) ||
-                (board[0][i] == player && board[1][i] == player && board[2][i] == player)) return true;
+    private void updateScores(String payload) {
+        String[] parts = payload.split(",");
+        String type = parts[0];
+        int wins = Integer.parseInt(parts[1]);
+        if (type.equals("X")) {
+            playerXScore.setText(String.valueOf(wins));
         }
-        return (board[0][0] == player && board[1][1] == player && board[2][2] == player) ||
-               (board[0][2] == player && board[1][1] == player && board[2][0] == player);
-    }
-
-    private boolean isBoardFull() {
-        for (Button button : buttons) {
-            if (button.getText().isEmpty()) return false;
+        else if (type.equals("O")) {
+            playerOScore.setText(String.valueOf(wins));
         }
-        return true;
-    }
-        */
-
-    private void updateScores() {
-        playerXScore.setText(String.valueOf(xWins));
-        drawScore.setText(String.valueOf(draws));
-        playerOScore.setText(String.valueOf(oWins));
+        else {
+            drawScore.setText(String.valueOf(wins));
+        }
     }
 
     private void resetBoard() {
@@ -186,6 +173,38 @@ public class BoardController3 {
         
         for (Button button : buttons) button.setText("");
         gameActive = true;
-        myTurn = true; // Reset to the starting turn
+        //for (int i = 0; i < 9; i++) setupButtonHover(buttons[i], labels[i]);
+    }
+    private void setupButtonHover(Button button, Label label) {
+        label.setOpacity(0.0);
+        label.setMouseTransparent(true);
+        label.setText(String.valueOf(mySymbol));
+        label.setVisible(true);
+    
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(160), label);
+        fadeIn.setToValue(0.5);
+    
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(175), label);
+        fadeOut.setToValue(0.0);
+
+        button.setOnMouseEntered(event -> {
+            if (!myTurn || !button.getText().isEmpty()) {
+                fadeIn.stop();
+                fadeOut.playFromStart();
+                return;
+            }
+            fadeOut.stop();
+            fadeIn.playFromStart();
+        });
+    
+        button.setOnMouseExited(event -> {
+            fadeIn.stop();
+            fadeOut.playFromStart();
+        });
+    }
+    private void toggleLabels(boolean isYourTurn) {
+        for (int i = 0; i < 9; i++) {
+            labels[i].setVisible(isYourTurn);
+        }
     }
 }

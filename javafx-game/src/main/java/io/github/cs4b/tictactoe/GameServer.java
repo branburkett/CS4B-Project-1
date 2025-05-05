@@ -13,6 +13,7 @@ public class GameServer {
     private final char[][] board = new char[3][3];
     private final List<ObjectOutputStream> clients = new ArrayList<>();
     private char currentTurn = 'X';
+    private int xWins, oWins, draws;
 
     public static void main(String[] args) throws IOException {
         GameServer gameServer = new GameServer();
@@ -50,15 +51,18 @@ public class GameServer {
     
                     if (board[row][col] == '\0' && symbol == currentTurn) {
                         board[row][col] = symbol;
-                        broadcast(new Message(Message.MessageType.MOVE_MADE, row + "," + col + "," + symbol));
+                        broadcast(new Message.MoveMade(row + "," + col + "," + symbol));
     
                         if (checkWin(symbol)) {
-                            broadcast(new Message(Message.MessageType.GAME_OVER, symbol + " wins!"));
+                            xWins = (currentTurn == 'X') ? ++xWins : xWins;
+                            oWins = (currentTurn == 'O') ? ++oWins : oWins;
+                            broadcast(new Message.GameOver(String.valueOf(currentTurn) + "," + ((currentTurn == 'X') ? xWins : oWins)));
                         } else if (isBoardFull()) {
-                            broadcast(new Message(Message.MessageType.GAME_OVER, "Draw!"));
+                            draws++;
+                            broadcast(new Message.GameOver("Draw" + "," + String.valueOf(draws)));
                         } else {
                             currentTurn = (symbol == 'X') ? 'O' : 'X';
-                            broadcast(new Message(Message.MessageType.TURN_CHANGE, "It's player " + currentTurn + "'s turn"));
+                            broadcast(new Message.TurnChange());
                         }
                     } else {
                         out.writeObject(new Message(Message.MessageType.INVALID_MOVE, "Invalid move"));
