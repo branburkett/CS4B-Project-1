@@ -126,14 +126,13 @@ public class BoardController3 {
                 switch (msg.type) {
                     case MOVE_MADE:
                         updateCellFromServer(msg.payload); // Update board from server message
-                        myTurn = msg.isYourTurn;
-                        break;
-                    case TURN_CHANGE:
                         myTurn = !myTurn;
-                        toggleLabels(myTurn);
+                        toggleLabels();
+                        break;
                     case GAME_OVER:
                         System.out.println(msg.payload);
-                        Platform.runLater(() -> updateScores(msg.payload)); // Run on javafx UI thread
+                        Platform.runLater(() -> updateScores(msg.payload));
+                        myTurn = false; // Run on javafx UI thread
                         break;
                     case INVALID_MOVE:
                         break;
@@ -179,7 +178,7 @@ public class BoardController3 {
         label.setOpacity(0.0);
         label.setMouseTransparent(true);
         label.setText(String.valueOf(mySymbol));
-        label.setVisible(true);
+        label.setVisible(myTurn);
     
         FadeTransition fadeIn = new FadeTransition(Duration.millis(160), label);
         fadeIn.setToValue(0.5);
@@ -188,11 +187,7 @@ public class BoardController3 {
         fadeOut.setToValue(0.0);
 
         button.setOnMouseEntered(event -> {
-            if (!myTurn || !button.getText().isEmpty()) {
-                fadeIn.stop();
-                fadeOut.playFromStart();
-                return;
-            }
+            if (myTurn == false || !button.getText().isEmpty()) return;
             fadeOut.stop();
             fadeIn.playFromStart();
         });
@@ -202,9 +197,9 @@ public class BoardController3 {
             fadeOut.playFromStart();
         });
     }
-    private void toggleLabels(boolean isYourTurn) {
+    private void toggleLabels() {
         for (int i = 0; i < 9; i++) {
-            labels[i].setVisible(isYourTurn);
+            labels[i].setVisible(myTurn);
         }
     }
 }

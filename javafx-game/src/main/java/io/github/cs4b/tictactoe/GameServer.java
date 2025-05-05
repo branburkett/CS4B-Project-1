@@ -62,7 +62,7 @@ public class GameServer {
                             broadcast(new Message.GameOver("Draw" + "," + String.valueOf(draws)));
                         } else {
                             currentTurn = (symbol == 'X') ? 'O' : 'X';
-                            broadcast(new Message.TurnChange());
+                            //broadcast(new Message.TurnChange());
                         }
                     } else {
                         out.writeObject(new Message(Message.MessageType.INVALID_MOVE, "Invalid move"));

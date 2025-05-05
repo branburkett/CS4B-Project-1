@@ -81,11 +81,6 @@ public class Message implements Serializable {
             super(MessageType.GAME_START, message);
         }
     }
-    public static class TurnChange extends Message {
-        public TurnChange() {
-            super(MessageType.TURN_CHANGE, "");
-        }
-    }
     public static class InvalidMove extends Message {
         public InvalidMove(String message) {
             super(MessageType.INVALID_MOVE, message);
