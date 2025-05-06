@@ -77,8 +77,8 @@ public class Message implements Serializable {
         }
     }
     public static class GameStart extends Message {
-        public GameStart(String message) {
-            super(MessageType.GAME_START, message);
+        public GameStart() {
+            super(MessageType.GAME_START, "");
         }
     }
     public static class InvalidMove extends Message {

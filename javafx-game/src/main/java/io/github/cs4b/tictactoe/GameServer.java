@@ -12,8 +12,10 @@ public class GameServer {
     private static final int PORT = 12345;
     private final char[][] board = new char[3][3];
     private final List<ObjectOutputStream> clients = new ArrayList<>();
+    private char initialTurn = 'X';
     private char currentTurn = 'X';
     private int xWins, oWins, draws;
+    private int rematchTally = 0;
 
     public static void main(String[] args) throws IOException {
         GameServer gameServer = new GameServer();
@@ -34,7 +36,7 @@ public class GameServer {
 
             new Thread(() -> handleClient(in, out)).start();
         }
-        broadcast(new Message.GameStart("Game has started"));
+        broadcast(new Message.GameStart());
     }
 
     private void handleClient(ObjectInputStream in, ObjectOutputStream out) {
@@ -64,10 +66,23 @@ public class GameServer {
                             currentTurn = (symbol == 'X') ? 'O' : 'X';
                             //broadcast(new Message.TurnChange());
                         }
-                    } else {
+                    }else {
                         out.writeObject(new Message(Message.MessageType.INVALID_MOVE, "Invalid move"));
                     }
                 }
+                else if (msg.type == Message.MessageType.GAME_START) {
+                    //tally one rematch vote 
+                    ++rematchTally;
+                    // if two rematch votes, send game start message and reset rematch vote
+                    if (rematchTally == 2) {
+                        initialTurn = (initialTurn == 'X') ? 'O' : 'X';
+                        currentTurn = initialTurn;
+                        System.out.println("restarting game");
+                        broadcast(new Message.GameStart());
+                        rematchTally = 0;
+                        resetBoard();
+                    }
+                } 
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,5 +114,10 @@ public class GameServer {
             for (char c : row)
                 if (c == '\0') return false;
         return true;
+    }
+    private void resetBoard() {
+        for (int i = 0; i < 3; i++) 
+            for (int j = 0; j < 3; j++) 
+                board[i][j] = '\0';      
     }
 }

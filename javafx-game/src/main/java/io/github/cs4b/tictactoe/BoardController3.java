@@ -70,11 +70,9 @@ public class BoardController3 {
         for (int i = 0; i < buttons.length; i++) {
             final int index = i;
             buttons[i].setOnAction(e -> handlePlayerMove(index));
-
-            //setupButtonHover(buttons[i], labels[i]);
         }
 
-        newGame.setOnAction(e -> resetBoard());
+        newGame.setOnAction(e -> requestRematch());
         backButton.setOnAction(e -> goToMainMenu());
     }
 
@@ -92,21 +90,17 @@ public class BoardController3 {
         }
     }
 
-    // Update board based on data from server
     private void updateCellFromServer(String payload) {
-        // Extract row, column, and symbol from the payload
         String[] parts = payload.split(",");
         int row = Integer.parseInt(parts[0]);
         int col = Integer.parseInt(parts[1]);
         char symbol = parts[2].charAt(0);
     
         // Update the board array
-        board[row][col] = symbol;
-    
-        // Get the index of the button corresponding to the cell (row, col)
+        //board[row][col] = symbol;
+
         int index = row * 3 + col;
-    
-        // Update the button text to show the player's symbol
+ 
         buttons[index].setText(String.valueOf(symbol));
     
         // Add style based on the symbol (X or O)
@@ -125,7 +119,7 @@ public class BoardController3 {
     
                 switch (msg.type) {
                     case MOVE_MADE:
-                        updateCellFromServer(msg.payload); // Update board from server message
+                        updateCellFromServer(msg.payload);
                         myTurn = !myTurn;
                         toggleLabels();
                         break;
@@ -137,6 +131,10 @@ public class BoardController3 {
                     case INVALID_MOVE:
                         break;
                     case GAME_START:
+                        System.out.println("restarting game");
+                        //mySymbol = (mySymbol == 'X') ? 'O' : 'X';
+                        myTurn = (mySymbol == 'X');
+                        Platform.runLater(() -> resetBoard());
                         
                 }
             }
@@ -164,15 +162,24 @@ public class BoardController3 {
             drawScore.setText(String.valueOf(wins));
         }
     }
+    private void requestRematch() {
+        try {
+            networkManager.sendMessage(new Message.GameStart());
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
+    }
 
     private void resetBoard() {
-        for (int i = 0; i < 3; i++) 
-            for (int j = 0; j < 3; j++) 
-                board[i][j] = ' ';
-        
-        for (Button button : buttons) button.setText("");
         gameActive = true;
-        //for (int i = 0; i < 9; i++) setupButtonHover(buttons[i], labels[i]);
+    
+        for (int i = 0; i < 9; i++) {
+            buttons[i].setText("");
+            buttons[i].getStyleClass().removeAll("x", "o");
+            labels[i].setText(String.valueOf(mySymbol));
+            labels[i].setVisible(myTurn);
+            setupButtonHover(buttons[i], labels[i]);
+        }
     }
     private void setupButtonHover(Button button, Label label) {
         label.setOpacity(0.0);
