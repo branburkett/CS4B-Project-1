@@ -12,7 +12,6 @@ public class GameServer {
     private static final int PORT = 12345;
     private final char[][] board = new char[3][3];
     private final List<ObjectOutputStream> clients = new ArrayList<>();
-    private char initialTurn = 'X';
     private char currentTurn = 'X';
     private int xWins, oWins, draws;
     private int rematchTally = 0;
@@ -75,12 +74,11 @@ public class GameServer {
                     ++rematchTally;
                     // if two rematch votes, send game start message and reset rematch vote
                     if (rematchTally == 2) {
-                        initialTurn = (initialTurn == 'X') ? 'O' : 'X';
-                        currentTurn = initialTurn;
                         System.out.println("restarting game");
                         broadcast(new Message.GameStart());
                         rematchTally = 0;
                         resetBoard();
+                        currentTurn = 'X';
                     }
                 } 
             }
