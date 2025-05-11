@@ -15,6 +15,7 @@ public class GameServer {
     private char currentTurn = 'X';
     private int xWins, oWins, draws;
     private int rematchTally = 0;
+    private boolean xStarts = true;
 
     public static void main(String[] args) throws IOException {
         GameServer gameServer = new GameServer();
@@ -35,7 +36,7 @@ public class GameServer {
 
             new Thread(() -> handleClient(in, out)).start();
         }
-        broadcast(new Message.GameStart());
+        startNewGame();
     }
 
     private void handleClient(ObjectInputStream in, ObjectOutputStream out) {
@@ -75,15 +76,15 @@ public class GameServer {
                     // if two rematch votes, send game start message and reset rematch vote
                     if (rematchTally == 2) {
                         System.out.println("restarting game");
-                        broadcast(new Message.GameStart());
-                        rematchTally = 0;
                         resetBoard();
-                        currentTurn = 'X';
+                        rematchTally = 0;
+                        startNewGame();
                     }
                 } 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Player disconnected");
+            
         }
     }
 
@@ -96,6 +97,14 @@ public class GameServer {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void startNewGame() {
+        resetBoard();
+        currentTurn = xStarts ? 'X' : 'O';
+        xStarts = !xStarts;
+        broadcast(new Message.GameStart(String.valueOf(currentTurn)));
+
     }
 
     private boolean checkWin(char player) {
