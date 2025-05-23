@@ -22,6 +22,15 @@ public class TicTacToeApp extends Application {
     public void start(Stage stage) {
         primaryStage = stage;
         showLandingScreen();
+
+        // Sends a DC message to the server when the program is about to exit
+        primaryStage.setOnCloseRequest(event -> {
+            try {
+                network.sendMessage(new Message.PlayerDC()); 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                });
     }
 
     public static void showLandingScreen() {
@@ -81,7 +90,7 @@ public class TicTacToeApp extends Application {
         
         BoardController3 controller = loader.getController();
         controller.setNetworkManager(network);
-        controller.setInitStatus(mySymbol, (mySymbol == 'X')); // Makes it the players turn if their symbol is X
+        controller.setInitStatus(mySymbol, (mySymbol == 'X')); // On a new game, makes it the players turn if their symbol is X
 
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
@@ -97,8 +106,11 @@ public class TicTacToeApp extends Application {
     public NetworkManager getNetworkManager() {
         return network;
     }
-    public static void setNetworkManager(NetworkManager nm) {
-        network = nm;
+    public static void setNetworkManager(NetworkManager manager) {
+        if (network != null) {
+            network.close(); 
+        }
+        network = manager;
     }
     public static void setSymbol(char symbol) {
         mySymbol = symbol;
@@ -106,11 +118,15 @@ public class TicTacToeApp extends Application {
     
     public static void showLoadingScreen() {
         try {
+            if (network != null) {
+                network.close();
+                network = null;      
+            }
             Parent root = FXMLLoader.load(TicTacToeApp.class.getResource("/tictactoe/loading.fxml"));
             Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             // Add the CSS file to the scene
-            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/board.css").toExternalForm());
+            scene.getStylesheets().add(TicTacToeApp.class.getResource("/tictactoe/landing.css").toExternalForm());
             System.out.println("board.css");
 
             primaryStage.setScene(scene);
